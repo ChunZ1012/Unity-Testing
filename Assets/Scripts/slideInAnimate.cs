@@ -19,7 +19,7 @@ public class slideInAnimate : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Camera.current
+
         }
     }
 }
