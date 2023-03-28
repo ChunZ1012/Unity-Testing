@@ -17,6 +17,8 @@ public class AnimatorController : MonoBehaviour
     #region private declaration
     private List<GameObject> _contentList = new List<GameObject>();
     private float _viewportHeight;
+    private float _scrollViewSens;
+    private float _contentSpacing;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -29,10 +31,12 @@ public class AnimatorController : MonoBehaviour
         }
         Debug.Log($"Children container count: {_contentList.Count}");
         // Get view port height
-        Transform scrollView = contentPanel.transform.parent;
         RectTransform svRt = scrollView.GetComponent<RectTransform>();
         _viewportHeight = svRt.rect.height;
-
+        // Get scrolling sensitivityz
+        _scrollViewSens = scrollView.GetComponent<ScrollRect>().scrollSensitivity;
+        // Get vertical layout group spacing
+        _contentSpacing = contentPanel.GetComponent<VerticalLayoutGroup>().spacing;
     }
 
     // Update is called once per frame
@@ -98,15 +102,14 @@ public class AnimatorController : MonoBehaviour
                     // Animator inside the component
                     Animator selfAnimator = content.GetComponent<Animator>();
                     RectTransform rt = content.GetComponent<RectTransform>();
-
-                    GameObject child = content.transform.GetChild(0).gameObject;
-                    RectTransform childRt = child.GetComponent<RectTransform>();
                     // Content's Height
                     float contentHeight = rt.rect.height;
+                    // Get the position relative to the scroll view sensitivity
+                    float cy = rt.position.y * _scrollViewSens;
                     // Calculated position y
-                    float ch = alternateCalc ? (rt.position.y + rt.rect.height) : rt.position.y;
+                    float ch = alternateCalc ? (cy + _viewportHeight - _contentSpacing) : cy;
                     bool isThresholdHit = (ch >= (contentHeight * animationTriggerThreshold));
-                    Debug.Log($"name: {content.name}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}, anchor: {childRt.anchoredPosition}");
+                    Debug.Log($"name: {content.name}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
                     // Trigger animation
                     if (isThresholdHit) selfAnimator.SetBool("content_slide_in", true);
                     // Debug.Log($"screenpos: {_camera.WorldToScreenPoint(content.transform.position)}");
