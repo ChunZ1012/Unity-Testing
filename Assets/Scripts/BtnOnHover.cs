@@ -65,7 +65,7 @@ public class BtnOnHover : MonoBehaviour
         btnOutline.effectDistance = new Vector2(0, 0);
 
         // Increase shadow effectDistance (on hover)
-        btnShadow.effectDistance = new Vector2(5, -5);
+        btnShadow.effectDistance = new Vector2(8, -8);
     }
 
     //Function called when mouse/pointer exits the button
