@@ -9,9 +9,9 @@ public class AnimatorController : MonoBehaviour
     #region public declaration
     public GameObject contentPanel;
     public GameObject scrollView;
-    public float animationTriggerThreshold;
-    public List<int> skipComponentIndex;
-    public bool reverseCalc = true;
+    public float animationTriggerThreshold = 0.135f;
+    public List<int> skipComponentIndex = new List<int> { 1 };
+    public bool reverseCalc = false;
     #endregion
 
     #region private declaration
@@ -39,27 +39,7 @@ public class AnimatorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        // UpdateRectTransform();
-    }
-
-    private void UpdateRectTransform()
-    {
-        foreach(GameObject go in _contentList)
-        {
-            // Self's rect transform
-            RectTransform self = go.GetComponent<RectTransform>();
-            // Get first child's rect transform
-            RectTransform child = self.GetChild(0).GetComponent<RectTransform>();
-
-            self.sizeDelta = new Vector2(self.rect.width, child.rect.height);
-
-            Debug.Log($"child name: {child.name}, self name: {self.name}");
-            Debug.Log($"child height: {child.rect.height}, self height: {self.rect.height}");
-        }
-        _isUpdated = true;
-    }
+    void Update() { }
 
     public void OnScrolled(Vector2 scrolledPosition)
     {
@@ -129,8 +109,6 @@ public class AnimatorController : MonoBehaviour
                     Debug.Log($"name: {content.name}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
                     // Trigger animation
                     if (isThresholdHit) selfAnimator.SetBool("content_slide_in", true);
-
-                    // animator.SetBool("content_slide_in", true);
                     // Debug.Log($"screenpos: {_camera.WorldToScreenPoint(content.transform.position)}");
                 }
             }
