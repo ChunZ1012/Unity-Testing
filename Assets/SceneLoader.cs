@@ -12,11 +12,16 @@ public class SceneLoader : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            LoadNextScene();    
+            //LoadNextScene();    
         }
     }
 
     public void LoadNextScene() 
+    {
+        StartCoroutine(LoadPage(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+
+    public void LoadAboutUs()
     {
         StartCoroutine(LoadPage(SceneManager.GetActiveScene().buildIndex + 1));
     }
