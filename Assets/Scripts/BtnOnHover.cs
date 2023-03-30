@@ -14,6 +14,7 @@ public class BtnOnHover : MonoBehaviour
     public float scaleTime;
     public Color hoverColor;
 
+    public SceneLoader sceneLoader;
 
     //Private
     private Button button;
@@ -85,5 +86,10 @@ public class BtnOnHover : MonoBehaviour
 
         // Remove shadow effectDistance
         btnShadow.effectDistance = new Vector2(0, 0);
+    }
+
+    public void onClick()
+    {
+        sceneLoader.LoadNextScene(button.name);
     }
 }

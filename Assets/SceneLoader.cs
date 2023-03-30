@@ -16,14 +16,10 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void LoadNextScene() 
+    public void LoadNextScene(string btnName) 
     {
-        StartCoroutine(LoadPage(SceneManager.GetActiveScene().buildIndex + 1));
-    }
-
-    public void LoadAboutUs()
-    {
-        StartCoroutine(LoadPage(SceneManager.GetActiveScene().buildIndex + 1));
+        Debug.Log($"Button name: { btnName }");
+        //StartCoroutine(LoadPage(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
     IEnumerator LoadPage(int pageIndex)
