@@ -11,12 +11,15 @@ public class AnimatorController : MonoBehaviour
     public GameObject scrollView;
     public float animationTriggerThreshold = 0.135f;
     public List<int> skipComponentIndex = new List<int> { 1 };
-    public bool alternateCalc = false;
+    public bool alternateCalc = true;
     #endregion
 
     #region private declaration
     private List<GameObject> _contentList = new List<GameObject>();
     private float _viewportHeight;
+    // Initialize scrolled position with initiail y value of 1
+    // As unity count the y from top to bottom (1 until 0)
+    private Vector2 _oldScrolledPosition = new Vector2(0, 1);
     // Variable used to store the count of onScroll triggers on scene load
     private int callCount = 0;
     #endregion
@@ -44,18 +47,25 @@ public class AnimatorController : MonoBehaviour
     public void OnScrolled(Vector2 scrolledPosition)
     {
         // Trigger the animation during scrolling  
+        // Compare the previous scrolled position y with the current scrolled position y
+        // If both y are not equal, then animate the content
+        if(scrolledPosition.y != _oldScrolledPosition.y)
+        {
+            _oldScrolledPosition = scrolledPosition;
+            TriggerAnimationV2(scrolledPosition);
+        }
         // Check if onScroll triggers on scene load have been called
         // Scene load onScroll triggers = number of animated modules * 3
         if (callCount > (_contentList.Count * 3))
         {
-            TriggerAnimationV2();
+            // TriggerAnimationV2();
         }
         else {
             callCount += 1;
         }
     }
 
-    private void TriggerAnimationV2()
+    private void TriggerAnimationV2(Vector2 scrolledPosition)
     {
         for (int i = 0; i < _contentList.Count; i++)
         {
@@ -76,7 +86,7 @@ public class AnimatorController : MonoBehaviour
                     // Calculated position y
                     float ch = alternateCalc ? (cy + contentHeight) : cy;
                     bool isThresholdHit = (ch >= (contentHeight * animationTriggerThreshold));
-                    Debug.Log($"name: {content.name}, original pos y: {cy}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
+                    Debug.Log($"name: {content.name}, original pos y: {cy}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, scrolled y: {scrolledPosition.y}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
                     // Trigger animation
                     if (isThresholdHit) selfAnimator.SetBool("content_slide_in", true);
                     // Debug.Log($"screenpos: {_camera.WorldToScreenPoint(content.transform.position)}");
