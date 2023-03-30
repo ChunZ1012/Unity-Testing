@@ -17,8 +17,6 @@ public class AnimatorController : MonoBehaviour
     #region private declaration
     private List<GameObject> _contentList = new List<GameObject>();
     private float _viewportHeight;
-    private float _scrollViewSens;
-    private float _contentSpacing;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -33,10 +31,6 @@ public class AnimatorController : MonoBehaviour
         // Get view port height
         RectTransform svRt = scrollView.GetComponent<RectTransform>();
         _viewportHeight = svRt.rect.height;
-        // Get scrolling sensitivityz
-        _scrollViewSens = scrollView.GetComponent<ScrollRect>().scrollSensitivity;
-        // Get vertical layout group spacing
-        _contentSpacing = contentPanel.GetComponent<VerticalLayoutGroup>().spacing;
     }
 
     // Update is called once per frame
@@ -45,47 +39,7 @@ public class AnimatorController : MonoBehaviour
     public void OnScrolled(Vector2 scrolledPosition)
     {
         // Trigger the animation during scrolling  
-        // Block animation before the content rect transform updates its height
-        if(true)
-        {
-            // TriggerAnimationV1();
- 
-        }
         TriggerAnimationV2();
-    }
-
-    private void TriggerAnimationV1()
-    {
-        for (int i = 0; i < _contentList.Count; i++)
-        {
-            try
-            {
-                if (skipComponentIndex.Contains(i)) continue;
-                else
-                {
-                    // content panel
-                    GameObject content = _contentList[i];
-                    // Animator inside the children of the component
-                    Animator animator = content.GetComponentInChildren<Animator>();
-                    ScrollRect scrollRect = scrollView.GetComponent<ScrollRect>();
-                    // float scrollValue = content.GetComponent<RectTransform>().anchoredPosition.y / scrollRect.content.rect.height;
-                    // Debug.Log($"scrollValue: {scrollValue}, current scroll value: {scrolledPosition.y}");
-                    RectTransform rt = content.GetComponent<RectTransform>();
-                    // Content's Height
-                    float contentHeight = rt.rect.height;
-                    // Calculated position y 
-                    float ch = rt.position.y;
-                    bool isThresholdHit = (ch >= (contentHeight * animationTriggerThreshold));
-                    // Debug.Log($"name: {content.name}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
-                    // Trigger animation
-                    if (isThresholdHit) animator.SetBool("content_slide_in", true);
-
-                    // animator.SetBool("content_slide_in", true);
-                    // Debug.Log($"screenpos: {_camera.WorldToScreenPoint(content.transform.position)}");
-                }
-            }
-            catch (Exception) { }
-        }
     }
 
     private void TriggerAnimationV2()
@@ -105,9 +59,9 @@ public class AnimatorController : MonoBehaviour
                     // Content's Height
                     float contentHeight = rt.rect.height;
                     // Get the position relative to the scroll view sensitivity
-                    float cy = rt.position.y * _scrollViewSens;
+                    float cy = rt.position.y;
                     // Calculated position y
-                    float ch = alternateCalc ? (cy + _viewportHeight - _contentSpacing) : cy;
+                    float ch = alternateCalc ? (cy + contentHeight) : cy;
                     bool isThresholdHit = (ch >= (contentHeight * animationTriggerThreshold));
                     Debug.Log($"name: {content.name}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, content height: {contentHeight}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
                     // Trigger animation
