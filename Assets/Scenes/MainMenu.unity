@@ -210,7 +210,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8567227}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8567229}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8567225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +308,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &8567230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +486,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 109128187}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 109128184}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &109128184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +516,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &109128185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,7 +786,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &210363468
 GameObject:
@@ -839,12 +865,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210363468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1000}
+  m_LocalPosition: {x: -2000, y: 0, z: -1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242231362
 GameObject:
@@ -981,6 +1007,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242231362}
   m_CullTransparentMesh: 1
+--- !u!95 &243401291 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8251306974633437168, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+  m_PrefabInstance: {fileID: 3997025358763725025}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &279716915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1491,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 371099676}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 371099673}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &371099673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1478,6 +1521,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &371099674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1678,7 +1722,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 730138344}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 730138341}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &730138341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,6 +1752,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &730138342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,11 +2506,11 @@ RectTransform:
   - {fileID: 1210275246}
   - {fileID: 359938586}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -2000, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1227327455
@@ -2640,7 +2697,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1290182312}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1290182309}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1290182309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2658,6 +2727,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &1290182310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2772,7 +2842,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1529837800
 GameObject:
@@ -2906,7 +2976,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1529837807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1529837804}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1529837804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2924,6 +3006,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &1529837805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2992,6 +3075,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529837800}
   m_CullTransparentMesh: 1
+--- !u!114 &1649450097 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5072108443743989381, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+  m_PrefabInstance: {fileID: 3997025358763725025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d94eb89d26512459eb879dd0c9110b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1709945278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,7 +3323,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1784063637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1784063634}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1784063634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3247,6 +3353,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &1784063635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3717,7 +3824,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1981814828}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1981814825}
+        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        m_MethodName: onClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1981814825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3735,6 +3854,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  sceneLoader: {fileID: 1649450097}
 --- !u!114 &1981814826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3803,3 +3923,92 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981814821}
   m_CullTransparentMesh: 1
+--- !u!1001 &3997025358763725025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 180147222771917316, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690836, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025357787690837, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025358117821346, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025358591238464, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072108443743989381, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 243401291}
+    - target: {fileID: 5724562534161705991, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724562534161705991, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675275425719421814, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675275425719421814, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
