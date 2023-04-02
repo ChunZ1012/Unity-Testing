@@ -13,19 +13,6 @@ public class SceneLoader : MonoBehaviour
         instance = this;
     }
 
-    /*
-    public enum MainScenes {
-        MainMenu,
-        AboutUsMenu,
-        WhatWeDoMenu,
-        ResearchAndInnovation,
-        NewsAndEvents,
-        Publications,
-        CommunityInclusivity,
-        ContactUs,
-        StaffSearch
-    }*/
-
     public Animator transition;
     public float transitionTime = 1f;
     private List<string> sceneNames = new List<string>();
@@ -33,7 +20,7 @@ public class SceneLoader : MonoBehaviour
 
     void Start()
     {
-        // print out the list of all scenes
+        // Get the list of all scene names
         string[] sceneGuids = AssetDatabase.FindAssets("t:Scene", new[] { "Assets/Scenes" });
 
         foreach (string guid in sceneGuids)
@@ -41,6 +28,8 @@ public class SceneLoader : MonoBehaviour
             string scenePath = AssetDatabase.GUIDToAssetPath(guid);
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
             sceneNames.Add(sceneName);
+
+            // Print out each scene names
             Debug.Log("Scene name: " + sceneName);
         }
     }
@@ -66,13 +55,13 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadPage(string pageName)
     {
-        //Check if pageName/assignedPage on button is not empty
+        // Check if pageName/assignedPage on button is not empty
         if (pageName == "") {
             Debug.Log("Page name passed is empty. Possible fix: Add values to assigned page variable on button");
         }
         else {
             bool matchName = false;
-            //Check if pageName exists in scenes (Note: Only scenes inside Scene folder will be checked)
+            // Check if pageName exists in scenes (Note: Only scenes inside Scene folder will be checked)
             for (int i = 0; i < sceneNames.Count; i++) {
                 if (sceneNames[i] == pageName) {
                     matchName = true;
@@ -80,7 +69,7 @@ public class SceneLoader : MonoBehaviour
                 }
             }
 
-            //Starts to load the corresponding page with transitions if pageName exists
+            // Starts to load the corresponding page with transitions if pageName exists
             if (matchName) {
                 Debug.Log($"Scene to be loaded: { pageName }");
                 StartCoroutine(PageLoader(pageName, "Start"));
