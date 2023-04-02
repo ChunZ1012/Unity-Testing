@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BtnOnHover : MonoBehaviour
+public class ButtonScript : MonoBehaviour
 {
     //Declaring variables
     //Public
@@ -13,8 +13,7 @@ public class BtnOnHover : MonoBehaviour
     public float scaleZ;
     public float scaleTime;
     public Color hoverColor;
-
-    public SceneLoader sceneLoader;
+    public string assignedPage;
 
     //Private
     private Button button;
@@ -90,6 +89,6 @@ public class BtnOnHover : MonoBehaviour
 
     public void onClick()
     {
-        sceneLoader.LoadNextScene(button.name);
+        SceneLoader.instance.LoadPage(assignedPage);
     }
 }

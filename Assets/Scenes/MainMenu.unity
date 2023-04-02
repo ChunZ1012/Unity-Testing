@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 8567227}
   - component: {fileID: 8567226}
   - component: {fileID: 8567225}
-  - component: {fileID: 8567229}
+  - component: {fileID: 8567231}
   - component: {fileID: 8567224}
   - component: {fileID: 8567230}
   m_Layer: 5
@@ -211,8 +211,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8567229}
-        m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+      - m_Target: {fileID: 8567231}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
@@ -291,24 +291,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8567222}
   m_CullTransparentMesh: 1
---- !u!114 &8567229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8567222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 282943003709b3b49af35b56e5687f25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleX: 1.1
-  scaleY: 1.1
-  scaleZ: 1.1
-  scaleTime: 0.5
-  hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
 --- !u!114 &8567230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,8 +308,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8567229}
-          m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        - m_Target: {fileID: 8567231}
+          m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
           m_MethodName: onMouseEnter
           m_Mode: 1
           m_Arguments:
@@ -342,8 +324,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 8567229}
-          m_TargetAssemblyTypeName: BtnOnHover, Assembly-CSharp
+        - m_Target: {fileID: 8567231}
+          m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
           m_MethodName: onMouseExit
           m_Mode: 1
           m_Arguments:
@@ -354,6 +336,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8567231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282943003709b3b49af35b56e5687f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleX: 1.1
+  scaleY: 1.1
+  scaleZ: 1.1
+  scaleTime: 0.5
+  hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  assignedPage: 
 --- !u!1 &109128180
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: ResearchAndInnovation
 --- !u!114 &109128185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: 
 --- !u!114 &371099674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,7 +1752,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: CommunityInclusivity
 --- !u!114 &730138342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: 
 --- !u!114 &1290182310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3006,7 +3006,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: 
 --- !u!114 &1529837805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3075,17 +3075,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529837800}
   m_CullTransparentMesh: 1
---- !u!114 &1649450097 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5072108443743989381, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
-  m_PrefabInstance: {fileID: 3997025358763725025}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1d94eb89d26512459eb879dd0c9110b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1709945278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3353,7 +3342,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: 
 --- !u!114 &1784063635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3854,7 +3843,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  sceneLoader: {fileID: 1649450097}
+  assignedPage: 
 --- !u!114 &1981814826
 MonoBehaviour:
   m_ObjectHideFlags: 0
