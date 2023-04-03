@@ -285,7 +285,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: AboutUsScene
 --- !u!114 &916356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: IntegrityNoticeScene
 --- !u!114 &124379586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: OurCertificationsScene
 --- !u!114 &341693933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: OurOfficesScene
 --- !u!114 &660764377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: CareerOpportunitiesScene
 --- !u!114 &1061041358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: OurSubsidiariesScene
 --- !u!114 &1095782486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,7 +2192,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: OurLogoScene
 --- !u!114 &1134106633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268002820}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
