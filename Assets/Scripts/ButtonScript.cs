@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BtnOnHover : MonoBehaviour
+public class ButtonScript : MonoBehaviour
 {
     //Declaring variables
     //Public
@@ -13,7 +13,7 @@ public class BtnOnHover : MonoBehaviour
     public float scaleZ;
     public float scaleTime;
     public Color hoverColor;
-
+    public string assignedPage;
 
     //Private
     private Button button;
@@ -85,5 +85,10 @@ public class BtnOnHover : MonoBehaviour
 
         // Remove shadow effectDistance
         btnShadow.effectDistance = new Vector2(0, 0);
+    }
+
+    public void onClick()
+    {
+        SceneLoader.instance.LoadPage(assignedPage);
     }
 }

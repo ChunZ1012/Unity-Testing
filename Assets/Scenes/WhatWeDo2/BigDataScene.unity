@@ -196,7 +196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Artificial Intelligence
+  m_text: Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
@@ -880,7 +880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a7590d7263e540eea5bdbe8554fc417, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1c5c709ef4ac504682cac3291523706, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1177,15 +1177,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In the area of IoT, we are exploring ways to increase the coverage of
-    our services while reducing the cost of ownership to provide our customers with
-    solutions that are more efficient and economical.
+  m_text: 'Providing the ability to store and process a massive volume of data from
+    various sources, big data is one of the fastest growing trends today. This capability
+    promises a brighter future for organisations embarking on the use of big data
+    to support their business operations.
 
 
-    We are also working to
-    include the use of machine learning and artificial intelligent (AI) in our IoT
-    solutions to improve data analytics and the prediction of outcomes to enable
-    autonomous machine operation.'
+
+    Leaders are fast realizing the many
+    ways big data can assist them make informed and accurate decisions, improve efficiency
+    and achieve organizational goals.
+
+
+
+    Our solutions can help you make the
+    most of your big data. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
   m_sharedMaterial: {fileID: 4543979703832863213, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
@@ -1709,7 +1715,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f233552c3cd574ef2addad3b2ac76883, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1c5c709ef4ac504682cac3291523706, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2403,7 +2409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blockchain
+  m_text: Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
@@ -2768,7 +2774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e6f7b313a4bcb4552a01ac1e6277ec07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1c5c709ef4ac504682cac3291523706, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2845,7 +2851,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Research & Innovation
+  m_text: Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 467eedd1bdd512749b8f67b7823d2f9e, type: 2}
   m_sharedMaterial: {fileID: -9002310427275548712, guid: 467eedd1bdd512749b8f67b7823d2f9e, type: 2}
@@ -3009,7 +3015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Internet of Things
+  m_text: Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
@@ -3823,16 +3829,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The success of cryptocurrencies has given rise to serious consideration
-    for the use of blockchain technology in various other fields such as in the finance,
-    business and government sectors.
+  m_text: 'Providing the ability to store and process a massive volume of data from
+    various sources, big data is one of the fastest growing trends today. This capability
+    promises a brighter future for organisations embarking on the use of big data
+    to support their business operations.
 
 
-    Although not always superior or even suitable
-    in every instance, when used judiciously, blockchain can enhance the security
-    of transactions as well as speed up processes and reduce errors. We are exploring
-    the use of blockchain for various eGovernment applications to potentially take
-    advantage of these benefits while avoiding the pitfalls.'
+
+    Leaders are fast realizing the many
+    ways big data can assist them make informed and accurate decisions, improve efficiency
+    and achieve organizational goals.
+
+
+
+    Our solutions can help you make the
+    most of your big data. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
   m_sharedMaterial: {fileID: 4543979703832863213, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
@@ -4394,15 +4405,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Artificial Intelligence (AI) is one of the hottest trends in digital transformation
-    today.  New developments in technology and the lowered cost of hardware mean
-    that the AI field is growing faster than ever. At SAINS we are keenly looking
-    into ways in which we can harness the potential of AI especially in the field
-    of Government.   \n\nWe see natural language processing (NLP) as a fruitful avenue
-    of exploration, for instance in the creation of a virtual assistance for government
-    processes. Automation of low skilled tasks is another potential application. 
-    We are also looking into AI in Internet of Things (IoT) systems for uses such
-    as better disaster prediction and predictive farming."
+  m_text: 'Providing the ability to store and process a massive volume of data from
+    various sources, big data is one of the fastest growing trends today. This capability
+    promises a brighter future for organisations embarking on the use of big data
+    to support their business operations.
+
+
+
+    Leaders are fast realizing the many
+    ways big data can assist them make informed and accurate decisions, improve efficiency
+    and achieve organizational goals.
+
+
+
+    Our solutions can help you make the
+    most of your big data. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
   m_sharedMaterial: {fileID: 4543979703832863213, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
@@ -4538,7 +4555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Home / Research & Innovation
+  m_text: Home / What We Do / Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
@@ -4690,7 +4707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Research and Innovation
+  m_text: Big Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
@@ -4887,7 +4904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc2763a9589564ed4bce36ba0489a7b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1c5c709ef4ac504682cac3291523706, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5153,11 +5170,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In order to maintain our edge and continue to provide the best solutions
-    to our customers, we constantly carry out research on new and innovative technologies.
-    Our research and innovation team continuously explores the newest areas of technology
-    in order to determine how we can best harness these technologies to improve our
-    offerings to our customers.
+  m_text: "Providing the ability to store and process a massive volume of data from
+    various sources, big data is one of the fastest growing trends today. This capability
+    promises a brighter future for organisations embarking on the use of big data
+    to support their business operations.\n\n\nLeaders are fast realizing the many
+    ways big data can assist them make informed and accurate decisions, improve efficiency
+    and achieve organizational goals.\n\n\nOur solutions can help you make the most
+    of your big data. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
   m_sharedMaterial: {fileID: 4543979703832863213, guid: e7f0a4f8a16dd0f4c8c16bbf75540623, type: 2}
