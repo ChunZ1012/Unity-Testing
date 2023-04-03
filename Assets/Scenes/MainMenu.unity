@@ -3020,7 +3020,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: SubMenuWhatWeDo
 --- !u!114 &1529837805
 MonoBehaviour:
   m_ObjectHideFlags: 0
