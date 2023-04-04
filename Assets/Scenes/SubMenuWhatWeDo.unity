@@ -1532,7 +1532,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1300
-  field of view: 55
+  field of view: 56
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -4369,7 +4369,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268002820}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 

@@ -42,7 +42,10 @@ public class AnimatorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentPanel.transform as RectTransform);
+    }
 
     public void OnScrolled(Vector2 scrolledPosition)
     {
