@@ -3934,6 +3934,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 180147222771917316, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_Name
+      value: Animations
+      objectReference: {fileID: 0}
+    - target: {fileID: 180147222771917316, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -4004,6 +4008,14 @@ PrefabInstance:
     - target: {fileID: 5724562534161705991, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
       propertyPath: m_BlocksRaycasts
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646279149998866029, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646279149998866029, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6675275425719421814, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
       propertyPath: m_Interactable
