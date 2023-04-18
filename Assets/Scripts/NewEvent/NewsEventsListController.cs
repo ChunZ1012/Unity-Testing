@@ -120,6 +120,14 @@ public class NewsEventsListController : MonoBehaviour
         contentButton.onClick.AddListener(() =>
         {
             // TODO: Add transition animation
+            // Call LoadPage() function in SceneLoader to load the NewsEventsDetailScene
+            // By default, LoadPage uses the "closing" animation
+            SceneLoader.instance.LoadPage("NewsEventsDetailScene");
+
+            // Can use playerPrefs to pass model.id over to another scene
+            // Note: PlayerPrefs are still saved even when exiting the game
+            PlayerPrefs.SetInt("modelID", model.Id);
+
             Debug.Log($"model id: {model.Id}");
         });
         Transform contentPanel = contentTransform.GetChild(0);

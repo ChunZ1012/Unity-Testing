@@ -86,4 +86,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WhatWeDo/TraningScene.unity
     guid: 23420b0a83d443f4da849c22f4a5db7e
+  - enabled: 1
+    path: Assets/Scenes/News & Events/NewsEventsDetailScene.unity
+    guid: b992c170108a02f4b84d903632afea5c
+  - enabled: 1
+    path: Assets/Scenes/News & Events/NewsEventsListScene.unity
+    guid: 7c9c50af77196854f8862bd5bd8475ad
   m_configObjects: {}

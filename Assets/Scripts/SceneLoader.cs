@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -36,11 +37,13 @@ public class SceneLoader : MonoBehaviour
         // Check the previous scene
         string prevScene = PlayerPrefs.GetString("PreviousScene");
         Debug.Log($"Name of last scene: { prevScene }");
-        // If it is from SubMenu or MainMenu, trigger the closing animation
-        if (prevScene.ToLower() == "mainmenu" || prevScene.ToLower() == "submenuaboutus" || prevScene.ToLower() == "submenuwhatwedo" || prevScene == "")
+        // If it is from one of the scenes stated in tempSceneNames, trigger the closing animation
+        string[] tempSceneNames = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene" };
+        if (tempSceneNames.Contains(prevScene.ToLower()))
         {
             transition.SetTrigger("Closing");
         }
+
         else {
             // Check the swipe method
             string SwipeMethod = PlayerPrefs.GetString("SwipeMethod");
