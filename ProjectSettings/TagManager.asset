@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SubContentContainer
   - NewEventDetailLinkedTextContent
   - NewEventDetailTextContent
+  - POPUP
+  - textstaff
   layers:
   - Default
   - TransparentFX
