@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: About Us
+  m_text: Our Subsidiaries
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 467eedd1bdd512749b8f67b7823d2f9e, type: 2}
   m_sharedMaterial: {fileID: -9002310427275548712, guid: 467eedd1bdd512749b8f67b7823d2f9e, type: 2}
@@ -2491,7 +2491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Home / About Us / About Us
+  m_text: Home / About Us / Our Subsidiaries
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
   m_sharedMaterial: {fileID: -814216689789694960, guid: dab2c0285364bca4fbd24c4a9f817ebe, type: 2}
