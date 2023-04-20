@@ -119,6 +119,7 @@ public class NewsEventsListController : MonoBehaviour
         Button contentButton = contentTransform.GetComponent<Button>();
         contentButton.onClick.AddListener(() =>
         {
+            NewEventDetailController.CONTENT_ID = model.Id;
             // TODO: Add transition animation
             // Call LoadPage() function in SceneLoader to load the NewsEventsDetailScene
             // By default, LoadPage uses the "closing" animation

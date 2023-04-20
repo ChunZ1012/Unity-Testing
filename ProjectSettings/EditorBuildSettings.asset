@@ -87,7 +87,7 @@ EditorBuildSettings:
     path: Assets/Scenes/WhatWeDo/IoTScene.unity
     guid: 60c63c1fbcf712f41a090f50b162bcdc
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo/TraningScene.unity
+    path: Assets/Scenes/WhatWeDo/TrainingScene.unity
     guid: 23420b0a83d443f4da849c22f4a5db7e
   - enabled: 1
     path: Assets/Scenes/News & Events/NewsEventsDetailScene.unity
