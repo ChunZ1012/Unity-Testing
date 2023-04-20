@@ -38,7 +38,7 @@ public class SceneLoader : MonoBehaviour
         string prevScene = PlayerPrefs.GetString("PreviousScene");
         Debug.Log($"Name of last scene: { prevScene }");
         // If it is from one of the scenes stated in tempSceneNames, trigger the closing animation
-        string[] tempSceneNames = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene" };
+        string[] tempSceneNames = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene", "contactus"};
         if (tempSceneNames.Contains(prevScene.ToLower()))
         {
             transition.SetTrigger("Closing");

@@ -1521,7 +1521,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: ContactUs
 --- !u!114 &371099674
 MonoBehaviour:
   m_ObjectHideFlags: 0

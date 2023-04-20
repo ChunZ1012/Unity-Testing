@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Other Static Pages/CommunityInclusivity.unity
     guid: 56a39e349cae84df89b684a36ee79c76
   - enabled: 1
+    path: Assets/Scenes/Other Static Pages/ContactUs.unity
+    guid: a2c5159a82812498dae20043fcbb1a40
+  - enabled: 1
     path: Assets/Scenes/About Us/AboutUsScene.unity
     guid: 0b9bdb3147f4c426aace7ae72de7d4ea
   - enabled: 1
