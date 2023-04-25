@@ -12,6 +12,8 @@ public class StaffButton : MonoBehaviour
 {
     public GameObject scrollViewContent;
     public GameObject buttonStaff;
+    public GameObject popup;
+    public OpenPanel openPanel;
 
     [Header("API Url")]
     public string baseUrl = "http://localhost:8080/api/staff";
@@ -19,7 +21,8 @@ public class StaffButton : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("ReqController started!");
+        Debug.Log("ReqController started!");       
+        PassObjectToAnotherScript();
         RequestData();
     }
 
@@ -52,6 +55,7 @@ public class StaffButton : MonoBehaviour
                             GameObject btn = (GameObject)Instantiate(buttonStaff);
                             btn.transform.SetParent(scrollViewContent.transform);
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = model.Name;
+                            btn.GetComponent<OpenPanel>().image = model.Image;
                             btn.GetComponent<OpenPanel>().id = model.Id;
                             btn.GetComponent<OpenPanel>().name = model.Name;
                             btn.GetComponent<OpenPanel>().contact = model.Contact;
@@ -59,6 +63,7 @@ public class StaffButton : MonoBehaviour
                             btn.GetComponent<OpenPanel>().position = model.Position;
                             btn.GetComponent<OpenPanel>().location = model.Location;
                         }
+
 
                     }
                     else
@@ -77,5 +82,11 @@ public class StaffButton : MonoBehaviour
         {
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
+    }
+
+    void PassObjectToAnotherScript()
+    {
+        //Code to pass the object to another C# script
+        openPanel.PassedGameObject = popup;
     }
 }

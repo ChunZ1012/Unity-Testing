@@ -288,4 +288,5 @@ MonoBehaviour:
   email: 
   position: 
   location: 
-  StaffDetail: {fileID: 1470108837113547153, guid: 831d6d120062ca640a46833b5bff4ea7, type: 3}
+  op: 1
+  popup: {fileID: 0}

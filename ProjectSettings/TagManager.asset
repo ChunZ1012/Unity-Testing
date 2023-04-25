@@ -8,6 +8,7 @@ TagManager:
   - NewEventDetailTextContent
   - POPUP
   - textstaff
+  - SubContentContainer
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - popup
   - 
   m_SortingLayers:
   - name: Default
