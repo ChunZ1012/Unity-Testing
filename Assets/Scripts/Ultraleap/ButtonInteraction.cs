@@ -44,7 +44,8 @@ public class ButtonInteraction : MonoBehaviour
             if ((_intObj as InteractionButton).isPressed)
             {
                 finalColor = _button.colors.pressedColor;
-                _button.onClick.Invoke();
+                // _button.onClick.Invoke();
+                Debug.Log($"Button clicked!");
             }
             // If button is hovered then get its hovered color
             else if (_intObj.isPrimaryHovered)

@@ -30,7 +30,7 @@ public class HandTracking : MonoBehaviour
     {
         _leadProvider.OnUpdateFrame -= OnHandUpdated;
     }
-
+    private Vector3 _lastKnownHandPos = Vector3.zero;
     private void OnHandUpdated(Frame frame)
     {
         // Helper function to get hands
@@ -41,7 +41,14 @@ public class HandTracking : MonoBehaviour
         for (int i = 0; i < _leadProvider.CurrentFrame.Hands.Count; i++)
         {
             Hand hand = _leadProvider.CurrentFrame.Hands[i];
-            PrintHandData(hand);
+            Debug.Log($"{(hand.IsLeft ? "Left" : "Right")} hand observed!");
+            Vector3 curHandPos = Vector3.Normalize(hand.PalmPosition);
+            // Consider use MoveTowards to determine the hand movement
+            // Either from left to right
+            // Or from right to left
+            // if(Vector3.MoveTowards)
+            if (_lastKnownHandPos == Vector3.zero) _lastKnownHandPos = curHandPos;
+            // PrintHandData(hand);
         }
     }
     private void PrintHandData(Hand hand)
