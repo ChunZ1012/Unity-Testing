@@ -6,6 +6,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Collections.Generic;
+
 public enum FlipMode
 {
     RightToLeft,
@@ -17,14 +19,14 @@ public class BookRaw : MonoBehaviour {
     [SerializeField]
     RectTransform BookPanel;
     public Sprite background;
-    public Texture[] bookPages;
+    public List<Texture> bookPages;
     public bool interactable=true;
     public bool enableShadowEffect=true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
     public int TotalPageCount
     {
-        get { return bookPages.Length; }
+        get { return bookPages.Count; }
     }
     public Vector3 EndBottomLeft
     {
@@ -67,7 +69,7 @@ public class BookRaw : MonoBehaviour {
     //current flip mode
     FlipMode mode;
 
-    void Start()
+    public void Start()
     {
         if (!canvas) canvas=GetComponentInParent<Canvas>();
         if (!canvas) Debug.LogError("Book should be a child to canvas");
@@ -95,7 +97,14 @@ public class BookRaw : MonoBehaviour {
         ShadowLTR.rectTransform.pivot = new Vector2(0, (pageWidth / 2) / shadowPageHeight);
 
     }
-
+    public void AddBookTexture(Texture bookTexture)
+    {
+        bookPages.Add(bookTexture);
+    }
+    public void RemoveBookTextures()
+    {
+        bookPages.Clear();
+    }
     private void CalcCurlCriticalPoints()
     {
         sb = new Vector3(0, -BookPanel.rect.height / 2);
@@ -276,7 +285,7 @@ public class BookRaw : MonoBehaviour {
     }
     public void DragRightPageToPoint(Vector3 point)
     {
-        if (currentPage >= bookPages.Length) return;
+        if (currentPage >= bookPages.Count) return;
         pageDragging = true;
         mode = FlipMode.RightToLeft;
         f = point;
@@ -289,15 +298,15 @@ public class BookRaw : MonoBehaviour {
         Left.rectTransform.pivot = new Vector2(0, 0);
         Left.transform.position = RightNext.transform.position;
         Left.transform.eulerAngles = new Vector3(0, 0, 0);
-        Left.texture = (currentPage < bookPages.Length) ? bookPages[currentPage] : background.texture;
+        Left.texture = (currentPage < bookPages.Count) ? bookPages[currentPage] : background.texture;
         Left.transform.SetAsFirstSibling();
         
         Right.gameObject.SetActive(true);
         Right.transform.position = RightNext.transform.position;
         Right.transform.eulerAngles = new Vector3(0, 0, 0);
-        Right.texture = (currentPage < bookPages.Length - 1) ? bookPages[currentPage + 1] : background.texture;
+        Right.texture = (currentPage < bookPages.Count - 1) ? bookPages[currentPage + 1] : background.texture;
 
-        RightNext.texture = (currentPage < bookPages.Length - 2) ? bookPages[currentPage + 2] : background.texture;
+        RightNext.texture = (currentPage < bookPages.Count - 2) ? bookPages[currentPage + 2] : background.texture;
 
         LeftNext.transform.SetAsFirstSibling();
         if (enableShadowEffect) Shadow.gameObject.SetActive(true);
@@ -366,8 +375,8 @@ public class BookRaw : MonoBehaviour {
     Coroutine currentCoroutine;
     void UpdateSprites()
     {
-        LeftNext.texture= (currentPage > 0 && currentPage <= bookPages.Length) ? bookPages[currentPage-1] : background.texture;
-        RightNext.texture=(currentPage>=0 &&currentPage<bookPages.Length) ? bookPages[currentPage] : background.texture;
+        LeftNext.texture= (currentPage > 0 && currentPage <= bookPages.Count) ? bookPages[currentPage-1] : background.texture;
+        RightNext.texture=(currentPage>=0 &&currentPage<bookPages.Count) ? bookPages[currentPage] : background.texture;
     }
     public void TweenForward()
     {
