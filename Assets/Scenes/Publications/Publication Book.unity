@@ -1780,6 +1780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Book: {fileID: 390365587}
+  localPath: ' '
 --- !u!1 &1278963087
 GameObject:
   m_ObjectHideFlags: 0

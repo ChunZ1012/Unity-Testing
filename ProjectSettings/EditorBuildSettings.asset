@@ -95,4 +95,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/News & Events/NewsEventsListScene.unity
     guid: 7c9c50af77196854f8862bd5bd8475ad
+  - enabled: 1
+    path: Assets/Scenes/Publications/PublicationPage.unity
+    guid: 72eecc8aeb7004a1aaf8988cfe297357
+  - enabled: 1
+    path: Assets/Scenes/Publications/Publication Book.unity
+    guid: 9f01d35f4757941589b48cb3b49bc0fe
   m_configObjects: {}

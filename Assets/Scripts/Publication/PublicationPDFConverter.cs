@@ -7,15 +7,12 @@ using UnityEngine;
 
 public class PublicationPDFConverter : MonoBehaviour
 {
-    public static List<Texture2D> ConvertPDFToTextures(string path, string savedImagePath)
+    public static List<Texture2D> ConvertPDFToTextures(string path)
     {
         List<Texture2D> imagesTexture = new List<Texture2D>();
         // Check if the pdf file is existed
         if (File.Exists(path))
         {
-            // Create the directory if not exist
-            if (!Directory.Exists(savedImagePath)) Directory.CreateDirectory(savedImagePath);
-
             using PdfDocument doc = PdfDocument.Load(path);
             // Debug
             Debug.Log($"page count: {doc.PageCount}");
