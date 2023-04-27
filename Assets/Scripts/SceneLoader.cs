@@ -95,70 +95,78 @@ public class SceneLoader : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            //Check if page is able to swipe right
-            if (AboutUsSceneNames.Contains(currentSceneName))
-            {
-                if (currentSceneName != "IntegrityNoticeScene")
-                {
-                    //Run Transition and change scene by build index
-                    string nextSceneName = getNextSceneNameByIndex(Direction.right);
-                    PlayerPrefs.SetString("SwipeMethod", "Left");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
-                }
-                else
-                {
-                    //Alert user on last page
-                    Debug.Log("Already on the last page");
-                }
-            }
-            else if (WhatWeDoSceneNames.Contains(currentSceneName))
-            {
-                if (currentSceneName != "TrainingScene")
-                {
-                    //Run Transition and change scene by build index
-                    string nextSceneName = getNextSceneNameByIndex(Direction.right);
-                    PlayerPrefs.SetString("SwipeMethod", "Left");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
-                }
-                else
-                {
-                    //Alert user on last page
-                    Debug.Log("Already on the last page");
-                }
-            }
+            LoadNext();
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            //Check if page is able to swipe left
-            if (AboutUsSceneNames.Contains(currentSceneName))
+            LoadPrev();
+        }
+    }
+    public void LoadPrev()
+    {
+        //Check if page is able to swipe left
+        if (AboutUsSceneNames.Contains(currentSceneName))
+        {
+            if (currentSceneName != "AboutUsScene")
             {
-                if (currentSceneName != "AboutUsScene")
-                {
-                    //Run Transition and change scene by build index
-                    string nextSceneName = getNextSceneNameByIndex(Direction.left);
-                    PlayerPrefs.SetString("SwipeMethod", "Right");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
-                }
-                else
-                {
-                    //Alert user on first page
-                    Debug.Log("Already on the first page");
-                }
+                //Run Transition and change scene by build index
+                string nextSceneName = getNextSceneNameByIndex(Direction.left);
+                PlayerPrefs.SetString("SwipeMethod", "Right");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
             }
-            else if (WhatWeDoSceneNames.Contains(currentSceneName))
+            else
             {
-                if (currentSceneName != "WhatWeDoMain")
-                {
-                    //Run Transition and change scene by build index
-                    string nextSceneName = getNextSceneNameByIndex(Direction.left);
-                    PlayerPrefs.SetString("SwipeMethod", "Right");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
-                }
-                else
-                {
-                    //Alert user on first page
-                    Debug.Log("Already on the first page");
-                }
+                //Alert user on first page
+                Debug.Log("Already on the first page");
+            }
+        }
+        else if (WhatWeDoSceneNames.Contains(currentSceneName))
+        {
+            if (currentSceneName != "WhatWeDoMain")
+            {
+                //Run Transition and change scene by build index
+                string nextSceneName = getNextSceneNameByIndex(Direction.left);
+                PlayerPrefs.SetString("SwipeMethod", "Right");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
+            }
+            else
+            {
+                //Alert user on first page
+                Debug.Log("Already on the first page");
+            }
+        }
+    }
+    public void LoadNext()
+    {
+        //Check if page is able to swipe right
+        if (AboutUsSceneNames.Contains(currentSceneName))
+        {
+            if (currentSceneName != "IntegrityNoticeScene")
+            {
+                //Run Transition and change scene by build index
+                string nextSceneName = getNextSceneNameByIndex(Direction.right);
+                PlayerPrefs.SetString("SwipeMethod", "Left");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
+            }
+            else
+            {
+                //Alert user on last page
+                Debug.Log("Already on the last page");
+            }
+        }
+        else if (WhatWeDoSceneNames.Contains(currentSceneName))
+        {
+            if (currentSceneName != "TrainingScene")
+            {
+                //Run Transition and change scene by build index
+                string nextSceneName = getNextSceneNameByIndex(Direction.right);
+                PlayerPrefs.SetString("SwipeMethod", "Left");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
+            }
+            else
+            {
+                //Alert user on last page
+                Debug.Log("Already on the last page");
             }
         }
     }

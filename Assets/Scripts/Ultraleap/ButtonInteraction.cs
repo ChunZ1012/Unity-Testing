@@ -50,7 +50,7 @@ public class ButtonInteraction : MonoBehaviour
             // If button is hovered then get its hovered color
             else if (_intObj.isPrimaryHovered)
             {
-                Debug.Log("Button hovered!");
+                // Debug.Log("Button hovered!");
                 finalColor = _button.colors.highlightedColor;
 
             }
