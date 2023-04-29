@@ -9,9 +9,6 @@ public class PublicationLoader : MonoBehaviour
 {
     public BookRaw Book;
     private string localPath = @"./Assets/TempPDF"; // By default, the temp PDF file created is stored in a folder named "TempPDF" in Assets folder
-    // Was:
-    //public string destPath = "http://localhost:8080/assets/uploads/pubs/1682561455_5b78198f0623772164f4.pdf";
-    // To be tested: Use static variable named: "selectedPDFUrl" of type string; Declared in BookScript.cs
 
     private List<Texture2D> _imagesTexture = new List<Texture2D>();
     // Start is called before the first frame update
@@ -22,13 +19,15 @@ public class PublicationLoader : MonoBehaviour
             if (req.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("Success");
+                // Calls LoadPdf() function to start loading the PDF only after it has done downloading the file
+                // (This is to prevent sharing violation)
+                LoadPdf();
             }
             else
             {
                 Debug.Log($"Connection failed! {req.result}, {req.GetResponseHeader("")}");
             }
         }));
-        LoadPdf();
     }
 
     // Update is called once per frame
