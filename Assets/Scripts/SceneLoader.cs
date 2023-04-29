@@ -21,6 +21,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public Animator transition;
+    public Animator alertAnim;
     public float transitionTime = 1f;
     private string currentSceneName;
     private List<string> allSceneNames = new List<string>();
@@ -118,6 +119,7 @@ public class SceneLoader : MonoBehaviour
                 else
                 {
                     //Alert user on last page
+                    alertAnim.SetTrigger("TriggerAlertLast");
                     Debug.Log("Already on the last page");
                 }
             }
@@ -133,6 +135,7 @@ public class SceneLoader : MonoBehaviour
                 else
                 {
                     //Alert user on last page
+                    alertAnim.SetTrigger("TriggerAlertLast");
                     Debug.Log("Already on the last page");
                 }
             }
@@ -152,6 +155,7 @@ public class SceneLoader : MonoBehaviour
                 else
                 {
                     //Alert user on first page
+                    alertAnim.SetTrigger("TriggerAlertFirst");
                     Debug.Log("Already on the first page");
                 }
             }
@@ -167,6 +171,7 @@ public class SceneLoader : MonoBehaviour
                 else
                 {
                     //Alert user on first page
+                    alertAnim.SetTrigger("TriggerAlertFirst");
                     Debug.Log("Already on the first page");
                 }
             }
