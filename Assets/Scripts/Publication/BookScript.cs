@@ -37,11 +37,20 @@ public class BookScript : MonoBehaviour
     // Static variables (for sending PDF url to PublicationBook)
     public static string selectedPDFUrl;
 
+    // For rebuilding
+    public GameObject contentContainer;
+
     // Start is called before the first frame update
     void Start()
     {
         // Call RequestData() function to retrieve data from API
         RequestData();
+    }
+
+    void Update()
+    {
+        // To fix content size fitter collapsing issue
+        LayoutRebuilder.MarkLayoutForRebuild(contentContainer.transform as RectTransform);
     }
 
     // Function to retrieve/fetch data from API
@@ -129,7 +138,7 @@ public class BookScript : MonoBehaviour
 
                 // Calls bookShelfWidthSizer() function to change the width of the bookshelf
                 bookShelfWidthSizer(limitCounter, bookShelfRectTransform);
-            } 
+            }
         }
     }
 

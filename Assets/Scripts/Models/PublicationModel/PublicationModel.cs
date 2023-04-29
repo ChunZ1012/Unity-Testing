@@ -6,7 +6,7 @@ public class PublicationModel
     public int Id { get; set; }
     [JsonProperty("title")]
     public string Title { get; set; }
-    [JsonProperty("catergory")]
+    [JsonProperty("category")]
     public string Category { get; set; }
     [JsonProperty("cover")]
     public string CoverUrl { get; set; }

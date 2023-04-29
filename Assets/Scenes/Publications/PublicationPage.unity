@@ -1160,6 +1160,9 @@ MonoBehaviour:
   pastPublicationContainer: {fileID: 1248622488}
   bookShelfPrefab: {fileID: 4193518684595282342, guid: 283d0a88f23bb4d888beedcf85dba1c9, type: 3}
   bookPrefab: {fileID: 7018303189791589355, guid: fa1770d69cd70457ebb80770ab2870af, type: 3}
+  baseUrl: http://localhost:8080/api/publish
+  imageNotAvailableTexture: {fileID: 2800000, guid: b2f7f4d0392157f4aa52481cc211f223, type: 3}
+  contentContainer: {fileID: 1035350420}
 --- !u!4 &997779581
 Transform:
   m_ObjectHideFlags: 0
