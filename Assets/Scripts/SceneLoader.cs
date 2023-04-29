@@ -27,9 +27,14 @@ public class SceneLoader : MonoBehaviour
     private List<string> AboutUsSceneNames = new List<string>();
     private List<string> WhatWeDoSceneNames = new List<string>();
 
+    string[] closingTransScenes = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene", "contactus" };
+    string[] loadingTransScenes = { "publicationpage", "publicationbook" };
+
     void Start()
     {
+        // Assign value to currenSceneName
         currentSceneName = SceneManager.GetActiveScene().name;
+
         // Reset PlayerPrefs ("PreviousScene") when on MainMenu
         if (currentSceneName.ToLower() == "mainmenu") {
             PlayerPrefs.SetString("PreviousScene", "");
@@ -37,13 +42,18 @@ public class SceneLoader : MonoBehaviour
         // Check the previous scene
         string prevScene = PlayerPrefs.GetString("PreviousScene");
         Debug.Log($"Name of last scene: { prevScene }");
-        // If it is from one of the scenes stated in tempSceneNames, trigger the closing animation
-        string[] tempSceneNames = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene", "contactus"};
-        if (tempSceneNames.Contains(prevScene.ToLower()))
+
+        // If the current scene is included inside loadingTransScenes array, trigger "Loading" animation (LoadingAnimation_End)
+        if (loadingTransScenes.Contains(currentSceneName.ToLower()))
+        {
+            transition.SetTrigger("Loading");
+        }
+        // Else, if the previous scene is included inside closingTransScenes array, trigger "Closiing" animation (ClosingAnimation_End)
+        else if (closingTransScenes.Contains(prevScene.ToLower()))
         {
             transition.SetTrigger("Closing");
         }
-
+        // Else, it would be from one of the sub-pages, hence will trigger the Swipe<Left/Right> animation (Swipe<Left/Right>_End)
         else {
             // Check the swipe method
             string SwipeMethod = PlayerPrefs.GetString("SwipeMethod");
@@ -103,7 +113,7 @@ public class SceneLoader : MonoBehaviour
                     //Run Transition and change scene by build index
                     string nextSceneName = getNextSceneNameByIndex(Direction.right);
                     PlayerPrefs.SetString("SwipeMethod", "Left");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
+                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft", transitionTime));
                 }
                 else
                 {
@@ -118,7 +128,7 @@ public class SceneLoader : MonoBehaviour
                     //Run Transition and change scene by build index
                     string nextSceneName = getNextSceneNameByIndex(Direction.right);
                     PlayerPrefs.SetString("SwipeMethod", "Left");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft"));
+                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft", transitionTime));
                 }
                 else
                 {
@@ -137,7 +147,7 @@ public class SceneLoader : MonoBehaviour
                     //Run Transition and change scene by build index
                     string nextSceneName = getNextSceneNameByIndex(Direction.left);
                     PlayerPrefs.SetString("SwipeMethod", "Right");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
+                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight", transitionTime));
                 }
                 else
                 {
@@ -152,7 +162,7 @@ public class SceneLoader : MonoBehaviour
                     //Run Transition and change scene by build index
                     string nextSceneName = getNextSceneNameByIndex(Direction.left);
                     PlayerPrefs.SetString("SwipeMethod", "Right");
-                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight"));
+                    StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight", transitionTime));
                 }
                 else
                 {
@@ -168,7 +178,7 @@ public class SceneLoader : MonoBehaviour
         Debug.Log(currentSceneName);
         if (currentSceneName.ToLower() != "mainmenu") {
             Debug.Log("Loading Main Menu");
-            StartCoroutine(PageLoader("MainMenu", "TriggerClosing"));
+            StartCoroutine(PageLoader("MainMenu", "TriggerClosing", transitionTime));
         }
     }
 
@@ -192,7 +202,14 @@ public class SceneLoader : MonoBehaviour
             // Starts to load the corresponding page with transitions if pageName exists
             if (matchName) {
                 Debug.Log($"Scene to be loaded: { pageName }");
-                StartCoroutine(PageLoader(pageName, "TriggerClosing"));
+                if (loadingTransScenes.Contains(pageName.ToLower()))
+                {
+                    StartCoroutine(PageLoader(pageName, "TriggerLoading", 2f));
+                }
+                else
+                {
+                    StartCoroutine(PageLoader(pageName, "TriggerClosing", transitionTime));
+                }
             } else {
                 Debug.Log("Page name passed doesn't match/exist in Assets/Scenes. Possible fix: Ensure pageName passed is equal to the scene name (case sensitive)");
             }
@@ -216,13 +233,24 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    IEnumerator PageLoader(string pageName, string triggerMethod)
+    IEnumerator PageLoader(string pageName, string triggerMethod, float transTime)
     {
         PlayerPrefs.SetString("PreviousScene", currentSceneName);
 
         transition.SetTrigger(triggerMethod);
 
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSeconds(transTime);
+
+        /*
+        if (loadingTransScenes.Contains(pageName.ToLower()))
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(transitionTime);
+        }
+        */
 
         SceneManager.LoadSceneAsync(pageName);
     }

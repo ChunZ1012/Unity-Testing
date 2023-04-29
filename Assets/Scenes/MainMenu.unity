@@ -2727,7 +2727,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: PublicationPage
 --- !u!114 &1290182310
 MonoBehaviour:
   m_ObjectHideFlags: 0
