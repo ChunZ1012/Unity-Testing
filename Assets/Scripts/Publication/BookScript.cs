@@ -194,7 +194,7 @@ public class BookScript : MonoBehaviour
             Debug.Log($"Book named: {bookModel.Title} was clicked");
 
             // Call SceneLoader to change to PublicationBook scene
-            SceneLoader.instance.LoadPage("Publication Book");
+            SceneLoader.instance.LoadPage("PublicationBook");
         });
     }
 
