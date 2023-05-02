@@ -16,6 +16,8 @@ public class SlideStaff : MonoBehaviour
     public List<string> Passedlist2;
     public List<int> index = new List<int>();
     private List<float> floatAlphabet = new List<float>();
+    private int op = 1;
+    private float floattemp;
     // Start is called before the first frame update
 
     void Start()
@@ -27,10 +29,36 @@ public class SlideStaff : MonoBehaviour
     void Update()
     {
         
-            
     }
 
+    public void Count()
+    {
+        int res = Passedlist.AsQueryable().Sum();
+        for (int x = 0; x < Passedlist.Count; x++)
+        {
+            float pos = (float)Passedlist[x] / (float)res;
+            if (op == 1)
+            {
+                floatAlphabet.Add(pos);
+                floattemp = pos;
+                op = 2;
+            }
+            else
+            {
+                floattemp = pos + floattemp;
+                floatAlphabet.Add(floattemp);
+            }
+            index.Add(x);
+        }
+        Debug.Log($"models' size: {floatAlphabet[0]}");
+        Debug.Log($"models' size: {floatAlphabet[1]}");
+        Debug.Log($"models' size: {floatAlphabet[2]}");
+        Debug.Log($"models' size: {floatAlphabet[3]}");
+        Debug.Log($"models' size: {floatAlphabet[4]}");
+        Debug.Log($"models' size: {floatAlphabet[5]}");
+        Debug.Log($"models' size: {floatAlphabet[25]}");
 
+    }
 
     public void moveDrag()
     {
@@ -42,6 +70,13 @@ public class SlideStaff : MonoBehaviour
     {
         slide.value = floatnum;
         float currentPosition = slide.value;
-        
+        for (int i = 0; i < floatAlphabet.Count; i++)
+        {
+            if (currentPosition <= floatAlphabet[i])
+            {
+                alphabetText.text = Passedlist2[index[i]];
+                break;
+            }
+        }
     }
 }

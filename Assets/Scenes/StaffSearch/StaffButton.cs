@@ -96,6 +96,9 @@ public class StaffButton : MonoBehaviour
                             }                                
                         }
                         alphabet.Add(zcount);
+                        slideStaff.Passedlist = alphabet;
+                        slideStaff.Passedlist2 = alphabets;
+                        slideStaff.Count();
                     }
                     else
                     {
