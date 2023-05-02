@@ -14,7 +14,15 @@ public class StaffButton : MonoBehaviour
     public GameObject buttonStaff;
     public GameObject popup;
     public OpenPanel openPanel;
-
+    public SlideStaff slideStaff;
+    private int tempnumber;
+    private int zcount;
+    private int tempindex;
+    private string tempstring;
+    private int z;
+    public List<int> alphabet = new List<int>();
+    private List<string> alphabets = new List<string>() {"A", "B", "C", "D", "E", "F", "G", "H", "I",
+        "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     [Header("API Url")]
     public string baseUrl = "http://localhost:8080/api/staff";
 
@@ -24,6 +32,7 @@ public class StaffButton : MonoBehaviour
         Debug.Log("ReqController started!");       
         PassObjectToAnotherScript();
         RequestData();
+        z = 0;
     }
 
     // Update is called once per frame
@@ -48,6 +57,9 @@ public class StaffButton : MonoBehaviour
                     {
                         List<StaffListModel> models = JsonConvert.DeserializeObject<List<StaffListModel>>(resp.Data);
                         Debug.Log($"models' size: {models.Count}");
+                        models.Sort(delegate (StaffListModel x, StaffListModel y) {
+                            return x.Name.CompareTo(y.Name);
+                        });
                         for (int i = 0; i < models.Count; i++)
                         {
                             StaffListModel model = models[i];
@@ -62,9 +74,28 @@ public class StaffButton : MonoBehaviour
                             btn.GetComponent<OpenPanel>().email = model.Email;
                             btn.GetComponent<OpenPanel>().position = model.Position;
                             btn.GetComponent<OpenPanel>().location = model.Location;
+                            string str = model.Name;
+                            string cutstr = str.Substring(0, 1);
+                            while (z < 25)
+                            {
+                                if (cutstr == alphabets[z])
+                                {
+                                    tempnumber += 1;
+                                    break;
+                                }
+                                else
+                                {
+                                    alphabet.Add(tempnumber);
+                                    tempnumber = 0;
+                                    z++;
+                                }
+                            }
+                            if (cutstr == "Z")
+                            {
+                                zcount++;
+                            }                                
                         }
-
-
+                        alphabet.Add(zcount);
                     }
                     else
                     {
@@ -88,5 +119,6 @@ public class StaffButton : MonoBehaviour
     {
         //Code to pass the object to another C# script
         openPanel.PassedGameObject = popup;
+        
     }
 }
