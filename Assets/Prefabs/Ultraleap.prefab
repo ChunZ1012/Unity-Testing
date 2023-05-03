@@ -82,7 +82,7 @@ MonoBehaviour:
   _hoverEnabled: 1
   _contactEnabled: 1
   _graspingEnabled: 0
-  _leapProvider: {fileID: 0}
+  _leapProvider: {fileID: 5438928124927155173}
   _handDataMode: 0
   enabledPrimaryHoverFingertips: 0101000000
 --- !u!1 &2431981132292878206
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1786938234743941872}
-  - component: {fileID: 9013584302254592233}
+  - component: {fileID: 1080233464845188812}
   m_Layer: 0
   m_Name: Script
   m_TagString: Untagged
@@ -110,14 +110,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2431981132292878206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.20949937, y: 0.41712496, z: -0.1721651}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 877880417673214913}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9013584302254592233
+--- !u!114 &1080233464845188812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leadProvider: {fileID: 5438928124927155173}
   SwipeFilterThreshold: 0.25
-  TimeoutDuration: 1
+  SwipeTimeoutDuration: 1
+  handRotationUpperThreshold: 0.78
+  handRotationLowerThreshold: 0.675
+  backGestureThreshold: 0.4
+  thumbStrengthThreshold: 0.33
+  indexStrengthThreshold: 0.7
+  middleStrengthThreshold: 0.7
+  ringStrengthThreshold: 0.7
+  pinkyStrengthThreshold: 0.5
+  scrollTimeoutDuration: 1
+  palmFlatUpperThreshold: 0.08
+  palmFlatLowerThreshold: -0.05
+  scrollAmplifyValue: 0.06
+  scrollRect: {fileID: 0}
+  disableDataLogging: 1
 --- !u!1 &3843829244236713616
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +194,7 @@ MonoBehaviour:
   _hoverEnabled: 1
   _contactEnabled: 1
   _graspingEnabled: 0
-  _leapProvider: {fileID: 0}
+  _leapProvider: {fileID: 5438928124927155173}
   _handDataMode: 1
   enabledPrimaryHoverFingertips: 0101000000
 --- !u!1 &4831728591067804534

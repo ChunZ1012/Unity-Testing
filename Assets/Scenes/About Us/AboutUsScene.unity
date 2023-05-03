@@ -1952,7 +1952,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leadProvider: {fileID: 1651993835}
   SwipeFilterThreshold: 0.25
-  TimeoutDuration: 1
+  SwipeTimeoutDuration: 1
+  handRotationUpperThreshold: 0.785
+  handRotationLowerThreshold: 0.675
+  backGestureThreshold: 0.4
+  thumbStrengthThreshold: 0.4
+  indexStrengthThreshold: 0.7
+  middleStrengthThreshold: 0.7
+  ringStrengthThreshold: 0.7
+  pinkyStrengthThreshold: 0.5
+  scrollTimeoutDuration: 1
+  palmFlatUpperThreshold: 0.08
+  palmFlatLowerThreshold: -0.05
+  scrollAmplifyValue: 0.075
+  scrollRect: {fileID: 1859937613}
+  disableDataLogging: 1
 --- !u!4 &781944839
 Transform:
   m_ObjectHideFlags: 0

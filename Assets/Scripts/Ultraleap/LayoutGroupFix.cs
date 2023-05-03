@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LayoutGroupFix : MonoBehaviour
 {
-    public GameObject buttonGroup;
+    public GameObject go;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +15,6 @@ public class LayoutGroupFix : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LayoutRebuilder.MarkLayoutForRebuild(buttonGroup.transform as RectTransform);
+        LayoutRebuilder.MarkLayoutForRebuild(go.transform as RectTransform);
     }
 }
