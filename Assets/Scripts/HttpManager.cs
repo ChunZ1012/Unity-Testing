@@ -10,7 +10,7 @@ public class HttpManager : MonoBehaviour
     {
         using(UnityWebRequest r = UnityWebRequest.Get(url))
         {
-            r.SetRequestHeader("Accept", "*/*");
+            r.SetRequestHeader("Accept", "application/json");
             r.SetRequestHeader("X-Unity-Req", "true");
             yield return r.SendWebRequest();
             callback(r);
@@ -23,6 +23,17 @@ public class HttpManager : MonoBehaviour
         {
             r.SetRequestHeader("Accept", "image/*");
             r.SetRequestHeader("X-Unity-Req", "true");
+            yield return r.SendWebRequest();
+            callback(r);
+        }
+    }
+
+    public static IEnumerator GetFile(string url, string localPath, Action<UnityWebRequest> callback)
+    {
+        using (UnityWebRequest r = UnityWebRequest.Get(url))
+        {
+            r.SetRequestHeader("X-Unity-Req", "true");
+            r.downloadHandler = new DownloadHandlerFile(localPath + @"/temp.pdf");
             yield return r.SendWebRequest();
             callback(r);
         }

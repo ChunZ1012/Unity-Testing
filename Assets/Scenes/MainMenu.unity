@@ -1007,11 +1007,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242231362}
   m_CullTransparentMesh: 1
---- !u!95 &243401291 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8251306974633437168, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
-  m_PrefabInstance: {fileID: 3997025358763725025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &279716915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,7 +1516,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: ContactUs
 --- !u!114 &371099674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2727,7 +2722,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: PublicationPage
 --- !u!114 &1290182310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3997,10 +3992,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5072108443743989381, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
-      propertyPath: transition
-      value: 
-      objectReference: {fileID: 243401291}
     - target: {fileID: 5724562534161705991, guid: 70bd62d7e4505b44e8832ee5889e3373, type: 3}
       propertyPath: m_Interactable
       value: 1
