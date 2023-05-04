@@ -50,14 +50,6 @@ public class SlideStaff : MonoBehaviour
             }
             index.Add(x);
         }
-        Debug.Log($"models' size: {floatAlphabet[0]}");
-        Debug.Log($"models' size: {floatAlphabet[1]}");
-        Debug.Log($"models' size: {floatAlphabet[2]}");
-        Debug.Log($"models' size: {floatAlphabet[3]}");
-        Debug.Log($"models' size: {floatAlphabet[4]}");
-        Debug.Log($"models' size: {floatAlphabet[5]}");
-        Debug.Log($"models' size: {floatAlphabet[25]}");
-
     }
 
     public void moveDrag()
