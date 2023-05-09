@@ -22,7 +22,9 @@ public class SceneLoader : MonoBehaviour
 
     public Animator transition;
     public Animator alertAnim;
+    public Animator instructionAnim;
     public float transitionTime = 1f;
+    private bool firstTrigger = true;
     private string currentSceneName;
     private List<string> allSceneNames = new List<string>();
     private List<string> AboutUsSceneNames = new List<string>();
@@ -95,6 +97,9 @@ public class SceneLoader : MonoBehaviour
             }
             allSceneNames.Add(sceneName);
         }
+
+        // Trigger show instructions on start
+        StartCoroutine(TriggerInstructions());
     }
 
     // Update is called once per frame
@@ -176,6 +181,27 @@ public class SceneLoader : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator TriggerInstructions()
+    {
+        if (firstTrigger)
+        {
+            yield return new WaitForSeconds(5f);
+            firstTrigger = !firstTrigger;
+        }
+        else
+        {
+            yield return new WaitForSeconds(10f);
+        }
+        
+        // Triggers the animation
+        instructionAnim.SetTrigger("TriggerInstructions");
+
+        yield return new WaitForSeconds(10f);
+
+        // Self call
+        StartCoroutine(TriggerInstructions());
     }
 
     public void LoadMainMenu()
