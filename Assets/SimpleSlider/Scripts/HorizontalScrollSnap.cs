@@ -20,6 +20,7 @@ namespace Assets.SimpleSlider.Scripts
 		[Header("Vertical Content")]
 		public GameObject TextContainer;
 		public ScrollRect TextScrollViewScrollRect;
+		public bool EnableTextLinking = false;
 		[Header("Setting")]
 		public int SwipeThreshold = 50;
 		public float SwipeTime = 0.5f;
@@ -117,21 +118,6 @@ namespace Assets.SimpleSlider.Scripts
 		}
 		private void PerformSlide()
         {
-			// Do not update the pagination
-			/*
-			if (Pagination)
-			{
-				var page = GetCurrentPage();
-
-				if(page > -1 && page < _pageSize)
-                {
-					if (!_pageToggles[page].isOn)
-					{
-						UpdatePaginator(page);
-					}
-				}
-			}
-			*/
 			// Auto Slide triggered
 			if (_shouldPerformSlide)
             {
@@ -143,7 +129,7 @@ namespace Assets.SimpleSlider.Scripts
 			// Manual slide by user
 			else if(_isUserInteract)
             {
-				if (_page > -1 && _page < _contentGOs.Count)
+				if (_page > -1 && _page < _contentGOs.Count && EnableTextLinking)
 				{
 					float textContentContainerHeight = TextScrollViewScrollRect.content.rect.height;
 					Transform textContent = _contentGOs[_page].transform;

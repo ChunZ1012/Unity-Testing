@@ -8,12 +8,13 @@ using UnityEngine.UI;
 public class ButtonInteraction : MonoBehaviour
 {
     [Tooltip("If enabled, the object will lerp to its hoverColor when a hand is nearby.")]
-    public bool useHover = true;
+    public bool useHover = false;
     [Tooltip("If enabled, the object will use its primaryHoverColor when the primary hover of an InteractionHand.")]
-    public bool usePrimaryHover = false;
+    public bool usePrimaryHover = true;
     public float ColorTransition = 30f;
-    public float hoverThreshold = 0.05f;
-
+    [Header("Hover Setting")]
+    public bool enableHoverThreshold = false;
+    public float hoverThreshold = 0.12f;
 
     private Color _defaultColor;
     // 
@@ -30,43 +31,43 @@ public class ButtonInteraction : MonoBehaviour
         if(_button != null)
         {
             _defaultColor = _button.colors.normalColor;
-            // Debug.Log($"button name: {_button.name}");
-
-            Debug.Log($"name: {_button.name}({_intObj.GetInstanceID()})");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_intObj != null && _button != null && _btnImage)
+        if (_intObj != null && _button != null && _btnImage != null)
         {
             Color finalColor = _defaultColor;
-            // We first check for pressed event, then hover, as the hand will always hover on top of the button
-            // thus the pressed event will never be triggered if the hover event is placed before the pressed event
-            // If button is pressed, then get the pressed color
-
-            // If button is hovered then get its hovered color
+               // If button is hovered then get its hovered color
             // Debug.Log($"dist: {_intObj.closestHoveringControllerDistance} ({_button.name})");
             // if (_intObj.isHovered && _intObj.closestHoveringControllerDistance <= hoverThreshold)
+            float dist = usePrimaryHover ? _intObj.primaryHoverDistance : _intObj.closestHoveringControllerDistance;
+            // if (dist != float.PositiveInfinity) Debug.Log($"{_button.name}: {dist}");
+
+            bool flag = enableHoverThreshold && (dist != float.PositiveInfinity && (dist <= hoverThreshold));
+            Debug.Log($"button name: {_button.name}, flag: {flag}, value: {dist}");
             if (_intObj.isPrimaryHovered && usePrimaryHover)
             {
                 // Debug.Log("Button hovered!");
                 finalColor = _button.colors.highlightedColor;
-                Debug.Log($"{_button.name} primary hovered!");
             }
             else if(_intObj.isHovered && useHover)
             {
                 // Debug.Log("Button hovered!");
-                finalColor = _button.colors.highlightedColor;
-                Debug.Log($"{_button.name} hovered!");
+                finalColor = _button.colors.selectedColor;
+            }
+            else if(flag)
+            {
+                finalColor = _button.colors.disabledColor;
             }
             // Check if the button is clicked, and change the button color to corresponding color
             if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed)
             {
                 finalColor = _button.colors.pressedColor;
-                // _button.onClick.Invoke();
-                Debug.Log($"Button clicked!");
+                _button.onClick.Invoke();
+                // Debug.Log($"Button clicked!");
             }
             // No need to check if the button is hovered or pressed, to get the default color
             // As we already assign the _defaultColor variable to finalColor

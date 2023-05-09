@@ -4399,8 +4399,8 @@ MonoBehaviour:
     _values:
     - {fileID: 1028030136}
     - {fileID: 1512534008}
-  hoverActivationRadius: 0.2
-  touchActivationRadius: 0.075
+  hoverActivationRadius: 0.15
+  touchActivationRadius: 0.05
   multiGraspHoldingMode: 0
   _autoGenerateLayers: 1
   _templateLayer:

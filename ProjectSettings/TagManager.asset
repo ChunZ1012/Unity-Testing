@@ -7,6 +7,7 @@ TagManager:
   - SubContentContainer
   - NewEventDetailLinkedTextContent
   - NewEventDetailTextContent
+  - NewEventDetailContentImage
   layers:
   - Default
   - TransparentFX

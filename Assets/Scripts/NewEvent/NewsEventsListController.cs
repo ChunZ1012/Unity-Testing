@@ -13,6 +13,7 @@ public class NewsEventsListController : MonoBehaviour
     [Header("API Url")]
     public string baseUrl = "http://localhost:8080/api/content/list";
     public GameObject verticalContentContainer;
+    public float verticalContentSpacing = 30f;
     [Header("Content Prefab")]
     public GameObject horizontalContentPrefab;
     public GameObject contentPrefab;
@@ -20,10 +21,15 @@ public class NewsEventsListController : MonoBehaviour
     [Header("Setting")]
     public float animateDuration;
     public LeanTweenType animateType;
+
+    [Header("Debug")]
+    public bool enableLogging = false;
+    public bool disableImmediateRebuild = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("ReqController started!");
+        if(enableLogging) Debug.Log("ReqController started!");
         RequestData();
     }
 
@@ -44,12 +50,40 @@ public class NewsEventsListController : MonoBehaviour
         }
         // Fix the content size fitter collapsing issue
         // See https://answers.unity.com/questions/1033789/panel-content-size-fitter-not-working.html
-        LayoutRebuilder.MarkLayoutForRebuild(verticalContentContainer.transform as RectTransform);
+        if(!disableImmediateRebuild)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(verticalContentContainer.transform as RectTransform);
+            // StartCoroutine(RebuildLayout());
+        }
+        /*
+        float totalContentHeight = 0f;
+        for(int i = 0; i < verticalContentContainer.transform.childCount; i++)
+        {
+            Transform contentTransform = verticalContentContainer.transform.GetChild(i).transform;
+            RectTransform contentRT = contentTransform.GetComponent<RectTransform>();
+
+            BoxCollider collider = contentTransform.GetComponentInChildren<BoxCollider>();
+            collider.size = new Vector3(contentRT.rect.width - 100, contentRT.rect.height - 50, 5);
+
+            if (i == 0) continue;
+            else
+            {
+                Transform prevContentTransform = verticalContentContainer.transform.GetChild(i - 1).transform;
+                RectTransform prevContentRT = prevContentTransform.GetComponent<RectTransform>();
+
+                contentTransform.position = new Vector3(contentTransform.position.x, contentTransform.position.y + prevContentRT.rect.height + verticalContentSpacing, contentTransform.position.z);
+
+                if (i == verticalContentContainer.transform.childCount - 1) totalContentHeight = contentTransform.position.y + contentRT.rect.height + verticalContentSpacing;
+            }
+        }
+
+        verticalContentContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(_ogVerticalContentSize.x, _ogVerticalContentSize.y + totalContentHeight);
+        */
     }
 
     public void RequestData()
     {
-        Debug.Log("Requesting data!");
+        if (enableLogging) Debug.Log("Requesting data!");
         try
         {
             StartCoroutine(HttpManager.GetRequest(baseUrl, (req) =>
@@ -57,25 +91,26 @@ public class NewsEventsListController : MonoBehaviour
                 if (req.result == UnityWebRequest.Result.Success)
                 {
                     HttpResponseModel resp = JsonConvert.DeserializeObject<HttpResponseModel>(req.downloadHandler.text);
-                    Debug.Log($"error: {resp.Error}, msg: {resp.Msg}, data: {resp.Data}");
+                    if (enableLogging) Debug.Log($"error: {resp.Error}, msg: {resp.Msg}, data: {resp.Data}");
 
                     if (!resp.Error)
                     {
                         List<NewEventListModel> models = JsonConvert.DeserializeObject<List<NewEventListModel>>(resp.Data);
-                        Debug.Log($"models' size: {models.Count}");
+                        if (enableLogging) Debug.Log($"models' size: {models.Count}");
                         for (int i = 0; i < models.Count; i++)
                         {
                             NewEventListModel model = models[i];
                             // Create horizontal content panel to hold the content, and set its parent
-                            Transform horizontalContentPanel = Instantiate(horizontalContentPrefab, verticalContentContainer.transform).transform;
+                            // Transform horizontalContentPanel = Instantiate(horizontalContentPrefab, verticalContentContainer.transform).transform;
                             // Create left content object
-                            CreateContentFromData(model, horizontalContentPanel, out Transform contentTransform);
+                            CreateContentFromData(model, verticalContentContainer.transform, out Transform contentTransform);
+                            /*
                             // If the next counter has not reach the end of the list
                             // then add the right content to the horizontal panel
                             if (i + 1 < models.Count)
                             {
                                 model = models[i + 1];
-                                CreateContentFromData(model, horizontalContentPanel, out contentTransform);
+                                CreateContentFromData(model, newEventVerticalContainer.content, out contentTransform);
                             }
                             else
                             {
@@ -92,18 +127,17 @@ public class NewsEventsListController : MonoBehaviour
                                     }
                                 }
                             }
-                            // increment;
-                            i++;
+                            */
                         }
                     }
                     else
                     {
-                        Debug.LogWarning($"Response has error! {resp.Msg}");
+                        if (enableLogging) Debug.LogWarning($"Response has error! {resp.Msg}");
                     }
                 }
                 else
                 {
-                    Debug.Log($"Connection failed! {req.result}, {req.GetResponseHeader("")}");
+                    if (enableLogging) Debug.Log($"Connection failed! {req.result}, {req.GetResponseHeader("")}");
                 }
             }));
         }
@@ -112,10 +146,11 @@ public class NewsEventsListController : MonoBehaviour
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
     }
-    private void CreateContentFromData(NewEventListModel model, Transform horizontalContentPanel, out Transform contentTransform)
+    private void CreateContentFromData(NewEventListModel model, Transform verticalContentPanel, out Transform contentTransform)
     {
         // Create content transform and set its parent
-        contentTransform = Instantiate(contentPrefab, horizontalContentPanel).transform;
+        contentTransform = Instantiate(contentPrefab, verticalContentPanel).transform;
+
         Button contentButton = contentTransform.GetComponent<Button>();
         contentButton.onClick.AddListener(() =>
         {
@@ -129,7 +164,7 @@ public class NewsEventsListController : MonoBehaviour
             // Note: PlayerPrefs are still saved even when exiting the game
             PlayerPrefs.SetInt("modelID", model.Id);
 
-            Debug.Log($"model id: {model.Id}");
+            if (enableLogging) Debug.Log($"model id: {model.Id}");
         });
         Transform contentPanel = contentTransform.GetChild(0);
         for (int x = 0; x < contentPanel.childCount; x++)
@@ -170,7 +205,7 @@ public class NewsEventsListController : MonoBehaviour
             }
             else
             {
-                Debug.Log($"resp code: {req.responseCode}, result: {req.result}, url: {req.url}");
+                if (enableLogging) Debug.Log($"resp code: {req.responseCode}, result: {req.result}, url: {req.url}");
                 // Create sprite from texture
                 imgSprite = Sprite.Create(imageNotAvailableTexture, new Rect(0, 0, imageNotAvailableTexture.width, imageNotAvailableTexture.height), new Vector2(0.5f, 0.5f), 100f);
             }
@@ -179,5 +214,17 @@ public class NewsEventsListController : MonoBehaviour
             // Set lean animation to the content image
             contentImage.GetComponent<RectTransform>().LeanSize(new Vector2(350, 350), animateDuration).setEase(animateType);
         });
+    }
+
+    private IEnumerator RebuildLayout()
+    {
+        VerticalLayoutGroup g = verticalContentContainer.GetComponent<VerticalLayoutGroup>();
+        g.enabled = false;
+        yield return new WaitForEndOfFrame();
+        g.enabled = true;
+        /*
+        g.CalculateLayoutInputVertical();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(verticalContentContainer.transform as RectTransform);
+        */
     }
 }
