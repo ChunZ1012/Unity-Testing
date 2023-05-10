@@ -147,8 +147,15 @@ public class SceneLoader : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            //Check if page is able to swipe left
-            if (AboutUsSceneNames.Contains(currentSceneName))
+            LoadPrev();
+        }
+    }
+    public void LoadPrev()
+    {
+        //Check if page is able to swipe left
+        if (AboutUsSceneNames.Contains(currentSceneName))
+        {
+            if (currentSceneName != "AboutUsScene")
             {
                 if (currentSceneName != "AboutUsScene")
                 {
@@ -164,7 +171,7 @@ public class SceneLoader : MonoBehaviour
                     Debug.Log("Already on the first page");
                 }
             }
-            else if (WhatWeDoSceneNames.Contains(currentSceneName))
+            else
             {
                 if (currentSceneName != "WhatWeDoMain")
                 {

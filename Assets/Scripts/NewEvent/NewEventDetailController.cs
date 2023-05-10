@@ -8,19 +8,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(ScrollRect))]
 public class NewEventDetailController : MonoBehaviour
 {
     public static int CONTENT_ID = 14;
     [Header("API Url")]
     public string baseUrl = "http://localhost:8080/api/content/{0}";
-    [Header("Slider")]
+    [Header("Content Setting")]
     public GameObject slider;
-    public ScrollRect textScrollViewScrollRect;
+    public GameObject contentTextContainer;
     [Header("Content Prefab")]
     public GameObject contentTextPrefab;
     public GameObject contentTitlePrefab;
     public GameObject contentPublishTimePrefab;
+    [Header("Misc")]
+    public bool enableLogging = false;
 
     private Assets.SimpleSlider.Scripts.Slider _sliderScript;
     private void Awake()
@@ -33,7 +34,7 @@ public class NewEventDetailController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Detail Req Controller started!");
+        if(enableLogging) Debug.Log("Detail Req Controller started!");
         // Start requesting data
         RequestData();
     }
@@ -52,7 +53,7 @@ public class NewEventDetailController : MonoBehaviour
     private void RequestData()
     {
         string url = string.Format(baseUrl, CONTENT_ID);
-        Debug.Log($"Requesting data! Url: {url}");
+        if (enableLogging) Debug.Log($"Requesting data! Url: {url}");
 
         try
         {
@@ -65,15 +66,11 @@ public class NewEventDetailController : MonoBehaviour
                 if(!resp.Error)
                 {
                     NewEventDetailModel model = JsonConvert.DeserializeObject<NewEventDetailModel>(resp.Data);
-                    // Debug.Log($"detail data: {resp.Data}");
-                    // Debug.Log($"Id: {model.Id}, title: {model.Title}, images count: {model.Images.Count}");
-
                     // Add title into the text scroll view
-                    GameObject titleGO = Instantiate(contentTitlePrefab, textScrollViewScrollRect.content);
+                    GameObject titleGO = Instantiate(contentTitlePrefab, contentTextContainer.transform);
                     titleGO.GetComponent<TextMeshProUGUI>().text = model.Title;
-
                     // Add publish time GO into the text scroll view
-                    GameObject timeGO = Instantiate(contentPublishTimePrefab, textScrollViewScrollRect.content);
+                    GameObject timeGO = Instantiate(contentPublishTimePrefab, contentTextContainer.transform);
                     timeGO.GetComponent<TextMeshProUGUI>().text = string.Format(timeGO.GetComponent<TextMeshProUGUI>().text, model.PublishTime.ToString("dd MMM, yyyy"));
 
                     // TODO: loop through each image object in model, pass the url to the slider and create respective content to text scroll view
@@ -87,18 +84,17 @@ public class NewEventDetailController : MonoBehaviour
                         _sliderScript.Banners.Add(banner);
 
                         // Create text content that sit under text scoll vieww
-                        GameObject textContentGO = Instantiate(contentTextPrefab, textScrollViewScrollRect.content);
+                        GameObject textContentGO = Instantiate(contentTextPrefab, contentTextContainer.transform);
                         TextMeshProUGUI tmp = textContentGO.GetComponent<TextMeshProUGUI>();
                         tmp.text = ParseHtml(imageModel.ImageContent);
                     }
                     // Alert script to load images from url
                     // Use StartCoroutine to trigger the method as it return IEnumerator
                     StartCoroutine(_sliderScript.Start());
-
                     if (!string.IsNullOrEmpty(model.Content))
                     {
-                        // Create text content that sit under text scoll vieww
-                        GameObject textContentGO = Instantiate(contentTextPrefab, textScrollViewScrollRect.content);
+                        // Create text content that sit under text scoll view
+                        GameObject textContentGO = Instantiate(contentTextPrefab, contentTextContainer.transform);
                         TextMeshProUGUI tmp = textContentGO.GetComponent<TextMeshProUGUI>();
                         tmp.text = ParseHtml(model.Content);
                         // Set to unlinked text content, as the default prefab has a linked tag associated with it
@@ -107,7 +103,7 @@ public class NewEventDetailController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Response return an error! msg: {resp.Msg}");
+                    if (enableLogging) Debug.LogWarning($"Response return an error! msg: {resp.Msg}");
                 }
             }));
         }
@@ -119,7 +115,7 @@ public class NewEventDetailController : MonoBehaviour
 
     private void ClearContent()
     {
-        Transform t = textScrollViewScrollRect.content.transform;
+        Transform t = contentTextContainer.transform;
         for (int i = 0; i < t.childCount; i++)
         {
             Transform child = t.GetChild(i);
