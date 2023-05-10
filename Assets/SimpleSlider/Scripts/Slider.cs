@@ -73,8 +73,8 @@ namespace Assets.SimpleSlider.Scripts
 							// Set banner text
 							bannerTextTransform.GetComponent<TextMeshProUGUI>().text = banner.Name;
 						}
-						RectTransform rect = instance.GetComponent<RectTransform>();
 
+						RectTransform rect = instance.GetComponent<RectTransform>();
 						rect.LeanSize(rect.sizeDelta, AnimationDuration).setEase(AnimationType);
 					}));
 				}

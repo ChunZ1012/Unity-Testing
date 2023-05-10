@@ -30,6 +30,8 @@ namespace Assets.SimpleSlider.Scripts
 		public double SliderTimerInterval = 5d;
 		[Tooltip("In Seconds")]
 		public double TimeWaitToRestartTimerAfterInteractionEnd = 30d;
+		[Header("Misc")]
+		public bool enableLogging = false;
 
 		private Toggle[] _pageToggles;
 
@@ -57,11 +59,13 @@ namespace Assets.SimpleSlider.Scripts
 			// Clear the list before insert
 			_contentGOs.Clear();
 			// Get total linked content size
+			/*
 			for (int i = 0; i < TextScrollViewScrollRect.content.childCount; i++)
 			{
 				if (TextScrollViewScrollRect.content.GetChild(i).CompareTag("NewEventDetailLinkedTextContent"))
 					_contentGOs.Add(TextScrollViewScrollRect.content.GetChild(i).gameObject);
 			}
+			*/
 
 			if (_timer == null)
 			{
@@ -164,7 +168,7 @@ namespace Assets.SimpleSlider.Scripts
 			else if (_page == ScrollRect.content.childCount - 1 && direction == 1) _page = 0;
 			// continue
 			else _page += direction;
-			Debug.Log($"Slide called, fromTimer: {fromTimer}, page: {_page}");
+			if (enableLogging) Debug.Log($"Slide called, fromTimer: {fromTimer}, page: {_page}");
 			_lerp = true;
 		}
 
