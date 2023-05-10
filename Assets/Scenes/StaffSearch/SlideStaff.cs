@@ -30,7 +30,7 @@ public class SlideStaff : MonoBehaviour
     {
         
     }
-
+    //calculate the position of the alphabet from 0-1
     public void Count()
     {
         int res = Passedlist.AsQueryable().Sum();
@@ -51,13 +51,13 @@ public class SlideStaff : MonoBehaviour
             index.Add(x);
         }
     }
-
+    //move the scroll when slider is moved
     public void moveDrag()
     {
         float currentPosition = slide.value;
         scrollAlphabet.MoveScroll(1f - currentPosition);
     }
-
+    //move slider according to scrolling
     public void MoveSlider(float floatnum)
     {
         slide.value = floatnum;

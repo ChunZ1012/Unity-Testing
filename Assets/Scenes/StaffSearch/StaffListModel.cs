@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-
+//class model for staff detail
 public class StaffListModel
 {
     [JsonProperty("id")]

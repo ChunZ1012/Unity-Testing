@@ -59,14 +59,14 @@ public class StaffButton : MonoBehaviour
                         Debug.Log($"models' size: {models.Count}");
                         models.Sort(delegate (StaffListModel x, StaffListModel y) {
                             return x.Name.CompareTo(y.Name);
-                        });
+                        }); //sort staff list alphabetically
                         for (int i = 0; i < models.Count; i++)
                         {
                             StaffListModel model = models[i];
-
                             GameObject btn = (GameObject)Instantiate(buttonStaff);
                             btn.transform.SetParent(scrollViewContent.transform);
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = model.Name;
+                            //send staff detail to display in staff detail popup
                             btn.GetComponent<OpenPanel>().image = model.Image;
                             btn.GetComponent<OpenPanel>().id = model.Id;
                             btn.GetComponent<OpenPanel>().name = model.Name;
@@ -74,8 +74,10 @@ public class StaffButton : MonoBehaviour
                             btn.GetComponent<OpenPanel>().email = model.Email;
                             btn.GetComponent<OpenPanel>().position = model.Position;
                             btn.GetComponent<OpenPanel>().location = model.Location;
+
                             string str = model.Name;
                             string cutstr = str.Substring(0, 1);
+                            //calculate how many of each alphabet there is
                             while (z < 25)
                             {
                                 if (cutstr == alphabets[z])
@@ -95,6 +97,7 @@ public class StaffButton : MonoBehaviour
                                 zcount++;
                             }                                
                         }
+                        //pass the data to SlideStaff class
                         alphabet.Add(zcount);
                         slideStaff.Passedlist = alphabet;
                         slideStaff.Passedlist2 = alphabets;
@@ -120,7 +123,7 @@ public class StaffButton : MonoBehaviour
 
     void PassObjectToAnotherScript()
     {
-        //Code to pass the object to another C# script
+        //Code to pass the object to OpenPanel class
         openPanel.PassedGameObject = popup;
         
     }

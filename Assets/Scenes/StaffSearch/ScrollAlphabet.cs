@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//scrolling for staff search
 public class ScrollAlphabet : MonoBehaviour
 {
     public ScrollRect scrollRect;
@@ -16,9 +17,10 @@ public class ScrollAlphabet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //current position of the scroll
         Vector2 contentPosition = scrollRect.content.position;
     }
-
+    //move scroll according to the slider
     public void MoveScroll(float targetPosition)
     {
         Vector2 newPosition = scrollRect.normalizedPosition;
@@ -27,7 +29,7 @@ public class ScrollAlphabet : MonoBehaviour
 
         scrollRect.content.position = scrollRect.content.position;
     }
-
+    //move slider when scrolling
     public void moveSlide()
     {
         Vector2 newPosition = scrollRect.normalizedPosition;
