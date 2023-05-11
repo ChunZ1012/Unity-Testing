@@ -45,29 +45,29 @@ EditorBuildSettings:
     path: Assets/Scenes/About Us/IntegrityNoticeScene.unity
     guid: 57ef680580c43104b8f7e646cf273961
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/WhatWeDoMain.unity
-    guid: 907e82537c529df46aad7d28c8c3127d
+    path: Assets/Scenes/WhatWeDo/WhatWeDoMain.unity
+    guid: ccfb729b7989040b2aac597856487a03
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/Land Management and GIS.unity
-    guid: 2a3354f4b2738d847a87ff7c93c931d6
+    path: Assets/Scenes/WhatWeDo/Land Management and GIS.unity
+    guid: 60f493b1f35534aea80b4c2d13203e0e
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/Local Authorities.unity
-    guid: 38d9d2ee3f37ad04f9dd8a143fdcaae7
+    path: Assets/Scenes/WhatWeDo/Local Authorities.unity
+    guid: baffbe4b99e9f4dfcb0cfd5b3e42b2bf
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/AdministrationSolutions.unity
-    guid: 47410c77a25ae794891bfc01ddee32b5
+    path: Assets/Scenes/WhatWeDo/AdministrationSolutions.unity
+    guid: bed81648b6ae7415693d174d772f2bdb
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/SarawakNet Infrastructure.unity
-    guid: 082b98ab1888cf641b8a684d674669c5
+    path: Assets/Scenes/WhatWeDo/SarawakNet Infrastructure.unity
+    guid: 524c1ce181e3c40c2b9600c5160fa270
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/Content Management.unity
-    guid: 46f445896f96bc14cb785f88ac876060
+    path: Assets/Scenes/WhatWeDo/Content Management.unity
+    guid: dbbdb1c9462704b35bf4bdd1d50d0234
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/Mobile Application.unity
-    guid: f81ccb0ae0f298a4fb4075d442392821
+    path: Assets/Scenes/WhatWeDo/Mobile Application.unity
+    guid: dbcb881209d9c462ea594d866afd8741
   - enabled: 1
-    path: Assets/Scenes/WhatWeDo2/Legal and Judiciary.unity
-    guid: a95d08caca0b69c4897fe2ed65ac17ee
+    path: Assets/Scenes/WhatWeDo/Legal and Judiciary.unity
+    guid: 90da2434648934d68a88b021ae0f501e
   - enabled: 1
     path: Assets/Scenes/WhatWeDo/CloudComputingScene.unity
     guid: 604df6328eca12440b7bc5853dfd05f6
