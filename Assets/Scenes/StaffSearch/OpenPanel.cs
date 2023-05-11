@@ -39,8 +39,10 @@ public class OpenPanel : MonoBehaviour
         
     }
 
+    // create popup panel
     public void CreatePanel() {
-        popup.gameObject.SetActive(true);
+        popup.gameObject.SetActive(true); //activate the panel
+        //show staff detail inside popup
         TMPro.TextMeshProUGUI[] textMeshProList;
         textMeshProList = popup.GetComponentsInChildren<TextMeshProUGUI>();
         textMeshProList[0].text = "Name: " + name;
