@@ -15,7 +15,7 @@ public class BookScript : MonoBehaviour
     public int limitPerShelf;
     public Transform inspirePublicationContainer;
     public Transform pastPublicationContainer;
-
+    public Transform shelfBackground;
     // Prefabs to be instantiated
     public GameObject bookShelfPrefab;
     public GameObject bookPrefab;
@@ -146,11 +146,12 @@ public class BookScript : MonoBehaviour
     private void bookShelfCreator(Transform publicationContainer)
     {
         // Instantiate the bookShelfPrefab
-        GameObject newBookShelf = Instantiate(bookShelfPrefab);
+        GameObject newBookShelf = Instantiate(bookShelfPrefab, publicationContainer.transform.Find("Background"));
 
         // Set parent
-        newBookShelf.transform.SetParent(publicationContainer.transform.Find("Background"));
+        // newBookShelf.transform.SetParent(publicationContainer.transform.Find("Background"));
 
+        //newBookShelf.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         // Set bookshelf object name "bookShelf[ID]", id is the index in bookShelves array
         // bookShelves holds bookShelf objects of both Inspire and Past publications
         newBookShelf.name = "bookShelf" + bookShelves.Count;
@@ -174,16 +175,18 @@ public class BookScript : MonoBehaviour
     private void bookCreator(PublicationModel bookModel)
     {
         // Instantiate the bookPrefab
-        GameObject newBook = Instantiate(bookPrefab);
+        GameObject newBook = Instantiate(bookPrefab, currentBookShelf.transform.Find("BooksContainer"));
 
         // Change game object (book) name
         newBook.name = bookModel.Title;
+
+        // newBook.GetComponent<RectTransform>().localScale = Vector3.one;
 
         // Adding book into bookList List
         bookList.Add(newBook);
 
         // Set currentBookShelf as the parent of the new book object
-        newBook.transform.SetParent(currentBookShelf.transform.Find("BooksContainer"));
+        // newBook.transform.SetParent(currentBookShelf.transform.Find("BooksContainer"));
 
         // Get image component of the book object
         Image imageComponent = newBook.GetComponent<Image>();

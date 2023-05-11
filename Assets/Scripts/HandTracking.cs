@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class HandTracking : MonoBehaviour
 {
     public LeapProvider _leadProvider;
+    [Header("Hand Setting")]
+    public float startTriggeringGestureThreshold = 1.5f;
     [Header("Swipe Setting")]
     public float SwipeFilterThreshold = 0.25f;
     [Tooltip("In second")]
@@ -22,6 +24,7 @@ public class HandTracking : MonoBehaviour
     public float ringStrengthThreshold = 0.725f;
     public float pinkyStrengthThreshold = 0.625f;
     [Header("Scroll Setting")]
+    public bool enableScroll = true;
     [Tooltip("In second")]
     public float scrollTimeoutDuration = 1.5f;
     // Hand is slightly up
@@ -33,7 +36,8 @@ public class HandTracking : MonoBehaviour
     public ScrollRect scrollRect;
     [Header("Raycasting")]
     public bool enableRaycast = false;
-    public InteractionHand interactionHand;
+    public InteractionHand interactionLeftHand;
+    public InteractionHand interactionRightHand;
     public float dist = 10;
     [Header("Misc")]
     public bool disableDataLogging = false;
@@ -41,7 +45,6 @@ public class HandTracking : MonoBehaviour
     private void Awake()
     {
         _leadProvider.OnUpdateFrame += OnHandUpdated;
-        Debug.Log(_leadProvider.name);
     }
     // Start is called before the first frame update
 
@@ -62,6 +65,7 @@ public class HandTracking : MonoBehaviour
         if(_leadProvider != null) _leadProvider.OnUpdateFrame -= OnHandUpdated;
     }
 
+    private float _timePassedSinceHandFirstDetected = 0f;
     private float _timePassedSinceLastSwipeTrigger = 0f;
     private float _timePassedSinceLastScrollTrigger = 0f;
     private void OnHandUpdated(Frame frame)
@@ -69,12 +73,23 @@ public class HandTracking : MonoBehaviour
         // Helper function to get hands
         _leadProvider.CurrentFrame.GetHand(Chirality.Left);
         Hand rightHand = _leadProvider.CurrentFrame.GetHand(Chirality.Right);
-
-      
         if(enableRaycast)
         {
-            if (rightHand != null)
+            if (rightHand != null && interactionRightHand != null)
             {
+                // Palm transform
+                Transform palmTransform = interactionRightHand.transform.GetChild(0);
+                if (Physics.Raycast(palmTransform.position, palmTransform.forward, out RaycastHit hit))
+                {
+                    Debug.DrawRay(palmTransform.position, palmTransform.forward * dist, Color.red);
+                    Debug.Log("Hit something");
+                }
+                else
+                {
+                    Debug.DrawRay(palmTransform.position, palmTransform.forward * dist, Color.green);
+                    Debug.Log("Hit nothing");
+                }
+                /*
                 foreach (Finger f in rightHand.Fingers)
                 {
                     if (f.Type == Finger.FingerType.TYPE_INDEX)
@@ -93,9 +108,9 @@ public class HandTracking : MonoBehaviour
                         }
                     }
                 }
+                */
             }
         }
-
 
         // If there is no hand detected
         // Then we reset the variables
@@ -103,21 +118,19 @@ public class HandTracking : MonoBehaviour
         {
             _timePassedSinceLastSwipeTrigger = 0f;
             _timePassedSinceLastScrollTrigger = 0f;
+            _timePassedSinceHandFirstDetected = 0f;
             return;
         }
         // Manual method to get hands
         for (int i = 0; i < _leadProvider.CurrentFrame.Hands.Count; i++)
         {
+            if (_timePassedSinceHandFirstDetected <= startTriggeringGestureThreshold)
+            {
+                _timePassedSinceHandFirstDetected += (Time.deltaTime / (_leadProvider.CurrentFrame.Hands.Count > 1 ? 2 : 1));
+            }
+
             Hand hand = _leadProvider.CurrentFrame.Hands[i];
-            // Debug.Log($"{(hand.IsLeft ? "Left" : "Right")} hand observed!");
             Quaternion handRotation = hand.Rotation;
-
-            // if (!disableDataLogging) Debug.Log($"rotation, x: {handRotation.x}, y: {handRotation.y}, z: {handRotation.z}, w: {handRotation.w}");
-            #region Unused
-            float handRotationW = handRotation.w;
-            float palmFlatPosY = hand.PalmarAxis().y * -1;
-            #endregion
-
             float handRotationZ = Math.Abs(handRotation.z);
             int numOfFingersThresholdHit = 0;
             
@@ -131,7 +144,7 @@ public class HandTracking : MonoBehaviour
             // Debug.Log($"Position x: {hand.DistalAxis().x}, y: {hand.DistalAxis().y}, z: {hand.DistalAxis().z}");
             #region Scroll
             // If the scroll timeout threshold is hitted
-            if (_timePassedSinceLastScrollTrigger >= scrollTimeoutDuration)
+            if (_timePassedSinceLastScrollTrigger >= scrollTimeoutDuration && enableScroll)
             {
                 // bool isHandFlatBasedOnRotation = handRotationW >= handRotationLowerThreshold || handRotationW <= handRotationUpperThreshold;
 
@@ -233,9 +246,10 @@ public class HandTracking : MonoBehaviour
             // else Debug.Log("Not within the time diff");
             #endregion
             // Increase the time
-            _timePassedSinceLastScrollTrigger += Time.deltaTime;
-            _timePassedSinceLastSwipeTrigger += Time.deltaTime;
         }
+        _timePassedSinceLastScrollTrigger += Time.deltaTime;
+        _timePassedSinceLastSwipeTrigger += Time.deltaTime;
+
     }
  
     private float GetPresetFingerThreshold(Finger.FingerType type)

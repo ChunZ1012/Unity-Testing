@@ -142,12 +142,14 @@ MonoBehaviour:
   ringStrengthThreshold: 0.7
   pinkyStrengthThreshold: 0.5
   scrollTimeoutDuration: 1.5
-  palmFlatUpperThreshold: 0.145
-  palmFlatLowerThreshold: -0.145
+  palmFlatUpperThreshold: 0.175
+  palmFlatLowerThreshold: -0.175
+  palmRotationZThreshold: 0.145
   scrollAmplifyValue: 0.06
   scrollRect: {fileID: 0}
   enableRaycast: 0
-  interactionHand: {fileID: 0}
+  interactionLeftHand: {fileID: 7075391950063814733}
+  interactionRightHand: {fileID: 8222700154633137828}
   dist: 10
   disableDataLogging: 1
 --- !u!1 &3516545933863545590

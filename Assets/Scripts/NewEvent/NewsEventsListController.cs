@@ -102,7 +102,8 @@ public class NewsEventsListController : MonoBehaviour
                             // Create horizontal content panel to hold the content, and set its parent
                             // Transform horizontalContentPanel = Instantiate(horizontalContentPrefab, verticalContentContainer.transform).transform;
                             // Create left content object
-                            CreateContentFromData(model, verticalContentContainer.transform, out Transform contentTransform);
+                            CreateContentFromData(model, verticalContentContainer.transform, i, out Transform contentTransform);
+                            contentTransform.name = string.Format("Content {0}", (i + 1));
                             /*
                             // If the next counter has not reach the end of the list
                             // then add the right content to the horizontal panel
@@ -145,7 +146,8 @@ public class NewsEventsListController : MonoBehaviour
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
     }
-    private void CreateContentFromData(NewEventListModel model, Transform verticalContentPanel, out Transform contentTransform)
+    private float posY = 0;
+    private void CreateContentFromData(NewEventListModel model, Transform verticalContentPanel, int idx, out Transform contentTransform)
     {
         // Create content transform and set its parent
         contentTransform = Instantiate(contentPrefab, verticalContentPanel).transform;
@@ -184,7 +186,7 @@ public class NewsEventsListController : MonoBehaviour
                 descTransform.GetComponent<TextMeshProUGUI>().text = model.PublishedDate;
 
                 // Rebuild layout, fixing the vertical layout group not working issue
-                LayoutRebuilder.ForceRebuildLayoutImmediate(contentChildTransform as RectTransform);
+                // LayoutRebuilder.ForceRebuildLayoutImmediate(contentChildTransform as RectTransform);
             }
         }
     }

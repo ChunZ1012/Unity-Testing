@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Linq;
 
 public class OpenPanel : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class OpenPanel : MonoBehaviour
     public string position;
     public string location;
     public GameObject popup;
+    public Texture2D imageNotAvailableTexture;
 
     public GameObject PassedGameObject
     {
@@ -45,8 +48,35 @@ public class OpenPanel : MonoBehaviour
         textMeshProList[2].text = "Email: " + email;
         textMeshProList[3].text = "Position: " + position;
         textMeshProList[4].text = "Location: " + location;
+
+        StartCoroutine(LoadImageFromUrl(image, popup.transform));
+
         Debug.Log("yes: " + id + name + contact);
     }
 
+    private IEnumerator LoadImageFromUrl(string url, Transform popup)
+    {
+        yield return HttpManager.GetTexture(url, (req) =>
+        {
+            Image imgObj = popup.GetComponentsInChildren<Image>()
+                .AsEnumerable()
+                .Single(i => i.transform.name.ToLower() == "staffavatar");
 
+            Sprite imgSprite;
+
+            if (req.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(req);
+                // Create sprite from texture
+                imgSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+            }
+            else
+            {
+                // Create sprite from texture
+                imgSprite = Sprite.Create(imageNotAvailableTexture, new Rect(0, 0, imageNotAvailableTexture.width, imageNotAvailableTexture.height), new Vector2(0.5f, 0.5f), 100f);
+            }
+
+            imgObj.sprite = imgSprite;
+        });
+    }
 }

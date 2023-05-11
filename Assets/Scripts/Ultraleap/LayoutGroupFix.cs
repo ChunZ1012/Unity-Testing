@@ -17,7 +17,7 @@ public class LayoutGroupFix : MonoBehaviour
     {
         LayoutRebuilder.MarkLayoutForRebuild(go.transform as RectTransform);
         //LayoutRebuilder.ForceRebuildLayoutImmediate(go.transform as RectTransform);
-        //Canvas.ForceUpdateCanvases();
+        Canvas.ForceUpdateCanvases();
 
         //go.GetComponentInChildren<HorizontalLayoutGroup>().enabled = false;
         //go.GetComponentInChildren<HorizontalLayoutGroup>().enabled = true;

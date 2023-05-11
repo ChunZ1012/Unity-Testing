@@ -405,9 +405,11 @@ GameObject:
   - component: {fileID: 1656666367426311833}
   - component: {fileID: 5714780623688770368}
   - component: {fileID: 8940123919274073103}
+  - component: {fileID: 3435128700594254007}
   - component: {fileID: 323712622117348412}
   - component: {fileID: 2955862619992390353}
   - component: {fileID: 1658588297963901055}
+  - component: {fileID: 46050530830382557}
   m_Layer: 5
   m_Name: ContentModule
   m_TagString: Untagged
@@ -425,7 +427,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4300737298900663957}
   m_Father: {fileID: 0}
@@ -558,6 +560,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &3435128700594254007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585415403931015822}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 1900
+  m_MinHeight: 600
+  m_PreferredWidth: 1920
+  m_PreferredHeight: 700
+  m_FlexibleWidth: 1920
+  m_FlexibleHeight: 800
+  m_LayoutPriority: 1
 --- !u!54 &323712622117348412
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -633,6 +655,19 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.12
+--- !u!65 &46050530830382557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585415403931015822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1900, y: 330, z: 10}
+  m_Center: {x: 0, y: 0, z: -2.5}
 --- !u!1 &4585415404281531313
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +806,7 @@ GameObject:
   - component: {fileID: 673732348873304893}
   - component: {fileID: 3904040812778739352}
   - component: {fileID: 3786743908547494028}
+  - component: {fileID: 8959579367771240520}
   m_Layer: 5
   m_Name: ContentPanel
   m_TagString: Untagged
@@ -849,7 +885,19 @@ BoxCollider:
   m_GameObject: {fileID: 6666101350958104926}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 800, y: 300, z: 5}
+  m_Size: {x: 1900, y: 330, z: 10}
   m_Center: {x: 0, y: 0, z: -2.5}
+--- !u!114 &8959579367771240520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6666101350958104926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8784f94b05e0db7469568f8c0f811e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,7 +14,7 @@ public class ButtonInteraction : MonoBehaviour
     public float ColorTransition = 30f;
     [Header("Hover Setting")]
     public bool enableHoverThreshold = false;
-    public float hoverThreshold = 0.12f;
+    public float hoverThreshold = 0.15f;
 
     private Color _defaultColor;
     // 
@@ -28,10 +28,30 @@ public class ButtonInteraction : MonoBehaviour
         _button = GetComponent<Button>();
         _btnImage = GetComponent<Image>();
 
-        if(_button != null)
+        if (_button != null)
         {
             _defaultColor = _button.colors.normalColor;
         }
+        _intObj.overrideInteractionLayer = true;
+        _intObj.rigidbody.isKinematic = false;
+        foreach(Collider cd in _intObj.primaryHoverColliders)
+        {
+            cd.isTrigger = false;
+            cd.enabled = true;
+        }
+
+        _intObj.OnSuspensionBegin += (controller) =>
+        {
+            Debug.Log($"suspend begin on {controller.name}");
+        };
+        _intObj.OnPrimaryHoverBegin += () =>
+        {
+            Debug.Log($"primary hover begin on {_button.name}");
+        };
+        _intObj.OnPrimaryHoverEnd += () =>
+        {
+            Debug.Log($"primary hover end on {_button.name}");
+        };
     }
 
     // Update is called once per frame
@@ -47,7 +67,7 @@ public class ButtonInteraction : MonoBehaviour
             // if (dist != float.PositiveInfinity) Debug.Log($"{_button.name}: {dist}");
 
             bool flag = enableHoverThreshold && (dist != float.PositiveInfinity && (dist <= hoverThreshold));
-            Debug.Log($"button name: {_button.name}, flag: {flag}, value: {dist}");
+            // Debug.Log($"button name: {_button.name}, flag: {flag}, value: {dist}");
             if (_intObj.isPrimaryHovered && usePrimaryHover)
             {
                 // Debug.Log("Button hovered!");
@@ -66,12 +86,12 @@ public class ButtonInteraction : MonoBehaviour
             if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed)
             {
                 finalColor = _button.colors.pressedColor;
-                _button.onClick.Invoke();
-                // Debug.Log($"Button clicked!");
+                // _button.onClick.Invoke();
+                Debug.Log($"Button clicked!");
             }
             // No need to check if the button is hovered or pressed, to get the default color
             // As we already assign the _defaultColor variable to finalColor
-            _btnImage.color = Color.Lerp(_btnImage.color, finalColor, 30F * Time.deltaTime);
+            _btnImage.color = Color.Lerp(_btnImage.color, finalColor, ColorTransition * Time.deltaTime);
         }
         else Debug.LogWarning("Either _intObj, _btnImage or _button is null!");
     }

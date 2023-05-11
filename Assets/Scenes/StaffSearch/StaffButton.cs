@@ -15,6 +15,8 @@ public class StaffButton : MonoBehaviour
     public GameObject popup;
     public OpenPanel openPanel;
     public SlideStaff slideStaff;
+    public Texture2D imageNotAvailableTexture;
+
     private int tempnumber;
     private int zcount;
     private int tempindex;
@@ -74,6 +76,8 @@ public class StaffButton : MonoBehaviour
                             btn.GetComponent<OpenPanel>().email = model.Email;
                             btn.GetComponent<OpenPanel>().position = model.Position;
                             btn.GetComponent<OpenPanel>().location = model.Location;
+                            btn.GetComponent<OpenPanel>().imageNotAvailableTexture = imageNotAvailableTexture;
+
                             string str = model.Name;
                             string cutstr = str.Substring(0, 1);
                             while (z < 25)
