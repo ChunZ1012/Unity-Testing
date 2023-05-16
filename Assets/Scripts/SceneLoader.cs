@@ -39,6 +39,12 @@ public class SceneLoader : MonoBehaviour
 
     void Start()
     {
+        // Assign value to currenSceneName
+        currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Assign value to currentScenePath
+        currentScenePath = SceneManager.GetActiveScene().path;
+
         // Reset PlayerPrefs ("PreviousScene") when on MainMenu
         if (currentSceneName.ToLower() == "mainmenu")
         {
@@ -46,12 +52,6 @@ public class SceneLoader : MonoBehaviour
         }
         // Assign value to prevScene
         prevScene = PlayerPrefs.GetString("PreviousScene");
-
-        // Assign value to currenSceneName
-        currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Assign value to currentScenePath
-        currentScenePath = SceneManager.GetActiveScene().path;
 
         // Get subfolder from path (category)
         string pattern = @"^.*\/([^\/]+)\/.*$";
