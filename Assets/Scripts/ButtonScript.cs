@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class ButtonScript : MonoBehaviour
 {
@@ -58,33 +59,58 @@ public class ButtonScript : MonoBehaviour
         colorB.selectedColor = hoverColor;
         button.colors = colorB;
 
-        // Change TMP Text color to white (on hover)
-        text.color = Color.white;
+        if (text != null)
+        {
+            // Change TMP Text color to white (on hover)
+            text.color = Color.white;
+        }
 
-        // Remove outline effectDistance (on hover)
-        btnOutline.effectDistance = new Vector2(0, 0);
+        if(btnOutline != null)
+        {
+            // Remove outline effectDistance (on hover)
+            btnOutline.effectDistance = new Vector2(0, 0);
+        }
 
-        // Increase shadow effectDistance (on hover)
-        btnShadow.effectDistance = new Vector2(8, -8);
+        if(btnShadow != null)
+        {
+            // Increase shadow effectDistance (on hover)
+            btnShadow.effectDistance = new Vector2(8, -8);
+        }
     }
 
     //Function called when mouse/pointer exits the button
     public void onMouseExit()
     {
-        // Scale the button back to normal size with animation using LeanTween
-        LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), scaleTime).setEase(LeanTweenType.easeOutCirc);
-        
-        colorB.selectedColor = originalColor;
-        button.colors = colorB;
+        try
+        {
+            // Scale the button back to normal size with animation using LeanTween
+            LeanTween.scale(this.gameObject, new Vector3(1f, 1f, 1f), scaleTime).setEase(LeanTweenType.easeOutCirc);
 
-        // Change TMP Text color back to its original color
-        text.color = Color.black;
+            colorB.selectedColor = originalColor;
+            button.colors = colorB;
 
-        // Set outline effectDistance back to (5, 5)
-        btnOutline.effectDistance = new Vector2(5, 5);
+            if(btnOutline != null)
+            {
+                // Set outline effectDistance back to (5, 5)
+                btnOutline.effectDistance = new Vector2(5, 5);
+            }
 
-        // Remove shadow effectDistance
-        btnShadow.effectDistance = new Vector2(0, 0);
+            if(btnShadow != null)
+            {
+                // Remove shadow effectDistance
+                btnShadow.effectDistance = new Vector2(0, 0);
+            }
+
+            if(text != null)
+            {
+                // Change TMP Text color back to its original color
+                text.color = Color.black;
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"{e.Message}, {e.StackTrace}");
+        }
     }
 
     public void onClick()

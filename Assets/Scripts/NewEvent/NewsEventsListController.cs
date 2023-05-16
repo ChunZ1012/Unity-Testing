@@ -102,7 +102,7 @@ public class NewsEventsListController : MonoBehaviour
                             // Create horizontal content panel to hold the content, and set its parent
                             // Transform horizontalContentPanel = Instantiate(horizontalContentPrefab, verticalContentContainer.transform).transform;
                             // Create left content object
-                            CreateContentFromData(model, verticalContentContainer.transform, i, out Transform contentTransform);
+                            CreateContentFromData(model, verticalContentContainer.transform, out Transform contentTransform);
                             contentTransform.name = string.Format("Content {0}", (i + 1));
                             /*
                             // If the next counter has not reach the end of the list
@@ -146,8 +146,7 @@ public class NewsEventsListController : MonoBehaviour
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
     }
-    private float posY = 0;
-    private void CreateContentFromData(NewEventListModel model, Transform verticalContentPanel, int idx, out Transform contentTransform)
+    private void CreateContentFromData(NewEventListModel model, Transform verticalContentPanel, out Transform contentTransform)
     {
         // Create content transform and set its parent
         contentTransform = Instantiate(contentPrefab, verticalContentPanel).transform;

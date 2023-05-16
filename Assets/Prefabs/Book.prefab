@@ -48,7 +48,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 150, y: 200, z: 1}
+  m_Size: {x: 150, y: 200, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7018303189791589355
 GameObject:
@@ -63,8 +63,9 @@ GameObject:
   - component: {fileID: 7018303189791589352}
   - component: {fileID: 7018303189791589353}
   - component: {fileID: 5510007716956903553}
-  - component: {fileID: 7383136303488922058}
-  - component: {fileID: 3192583793516284404}
+  - component: {fileID: 4385420007913235914}
+  - component: {fileID: 5977703135206581722}
+  - component: {fileID: 7684122831590330597}
   m_Layer: 5
   m_Name: Book
   m_TagString: Untagged
@@ -189,9 +190,9 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &7383136303488922058
+--- !u!114 &4385420007913235914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7018303189791589355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f10fa40360571247a7ca806d6859557, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cba520a60e47274cb1e5afbb57aae0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _manager: {fileID: 0}
@@ -213,16 +214,27 @@ MonoBehaviour:
   _contactForceMode: 1
   _allowMultiGrasp: 0
   _moveObjectWhenGrasped: 1
-  graspedMovementType: 0
-  _overrideInteractionLayer: 0
+  graspedMovementType: 2
+  _overrideInteractionLayer: 1
   _interactionLayer:
-    layerIndex: 0
+    layerIndex: 5
   _overrideNoContactLayer: 0
   _noContactLayer:
     layerIndex: 0
   _eventTable:
     _entries: []
---- !u!114 &3192583793516284404
+  _controlEnabled: 1
+  startingPositionMode: 0
+  minMaxHeight: {x: 0, y: 0.02}
+  restingHeight: 0.2
+  _springForce: 0.1
+  _OnPress:
+    m_PersistentCalls:
+      m_Calls: []
+  _OnUnpress:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5977703135206581722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,3 +251,23 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.15
+  invokedThresholdBeforeIgnoring: 1
+  requireImageComponent: 0
+--- !u!114 &7684122831590330597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018303189791589355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282943003709b3b49af35b56e5687f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleX: 1.1
+  scaleY: 1.1
+  scaleZ: 1.1
+  scaleTime: 250
+  hoverColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 0}
+  assignedPage: 

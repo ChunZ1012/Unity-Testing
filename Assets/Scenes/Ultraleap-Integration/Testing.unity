@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 85379307}
   - component: {fileID: 85379306}
   - component: {fileID: 85379305}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: TxtAboutUs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 165316794}
   - component: {fileID: 165316793}
   - component: {fileID: 165316792}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: BtnAboutUs 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,6 +369,8 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.13
+  invokedThresholdBeforeIgnoring: 1
+  requireImageComponent: 1
 --- !u!114 &165316793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -56.2}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367689963
@@ -941,7 +943,7 @@ GameObject:
   - component: {fileID: 477494893}
   - component: {fileID: 477494892}
   - component: {fileID: 477494891}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: BtnAboutUs 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,6 +988,8 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.13
+  invokedThresholdBeforeIgnoring: 1
+  requireImageComponent: 1
 --- !u!114 &477494892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,9 +1373,9 @@ RectTransform:
   m_Father: {fileID: 479749394}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 1720, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &771098575
@@ -1443,9 +1447,9 @@ RectTransform:
   m_Father: {fileID: 479749394}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -130}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &976763036
@@ -1597,9 +1601,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: dist
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
       propertyPath: scrollRect
       value: 
       objectReference: {fileID: 1418872132}
+    - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: enableRaycast
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: withLayerMask
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
       propertyPath: interactionHand
       value: 
@@ -1613,8 +1629,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8068892971779363746, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: _autoGenerateLayers
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068892971779363746, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
       propertyPath: hoverActivationRadius
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068892971779363746, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: _contactBoneLayer.layerIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068892971779363746, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: _interactionLayer.layerIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068892971779363746, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: _interactionNoContactLayer.layerIndex
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8222700154633137828, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
       propertyPath: enabledPrimaryHoverFingertips.Array.data[0]
@@ -1915,6 +1947,8 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.13
+  invokedThresholdBeforeIgnoring: 1
+  requireImageComponent: 1
 --- !u!114 &1281029030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2441,7 +2475,7 @@ GameObject:
   - component: {fileID: 1551746501}
   - component: {fileID: 1551746500}
   - component: {fileID: 1551746499}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: TxtAboutUs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2642,6 +2676,8 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.13
+  invokedThresholdBeforeIgnoring: 1
+  requireImageComponent: 1
 --- !u!114 &1591372440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3058,7 +3094,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787917482}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &1787917485
 Transform:
   m_ObjectHideFlags: 0

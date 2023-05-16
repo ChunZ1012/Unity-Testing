@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class popupclose : MonoBehaviour
 {
     public Button button;
+    public Image StaffImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class popupclose : MonoBehaviour
 
     void TaskOnClick()
     {
+        StaffImage.sprite = null;
         //deactivate panel
         this.gameObject.SetActive(false);
     }

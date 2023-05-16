@@ -1,6 +1,4 @@
 using Leap.Unity.Interaction;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +13,12 @@ public class ButtonInteraction : MonoBehaviour
     [Header("Hover Setting")]
     public bool enableHoverThreshold = false;
     public float hoverThreshold = 0.15f;
+    [Header("Misc")]
+    public int invokedThresholdBeforeIgnoring = 1;
+    public bool requireImageComponent = true;
 
+    private int _invokedCount = 0;
+    private ButtonScript _buttonScript;
     private Color _defaultColor;
     // 
     private InteractionBehaviour _intObj;
@@ -26,12 +29,12 @@ public class ButtonInteraction : MonoBehaviour
     {
         _intObj = GetComponent<InteractionBehaviour>();
         _button = GetComponent<Button>();
-        _btnImage = GetComponent<Image>();
+        if(requireImageComponent) _btnImage = GetComponent<Image>();
 
-        if (_button != null)
-        {
-            _defaultColor = _button.colors.normalColor;
-        }
+        _buttonScript = GetComponent<ButtonScript>();
+
+        if (_button != null) _defaultColor = _button.colors.normalColor;
+        /*
         _intObj.overrideInteractionLayer = true;
         _intObj.rigidbody.isKinematic = false;
         foreach(Collider cd in _intObj.primaryHoverColliders)
@@ -39,35 +42,35 @@ public class ButtonInteraction : MonoBehaviour
             cd.isTrigger = false;
             cd.enabled = true;
         }
-
+        */
         _intObj.OnSuspensionBegin += (controller) =>
         {
             Debug.Log($"suspend begin on {controller.name}");
         };
         _intObj.OnPrimaryHoverBegin += () =>
         {
-            Debug.Log($"primary hover begin on {_button.name}");
+            // Debug.Log($"primary hover begin on {_button.name}");
+
+            if (_buttonScript != null) _buttonScript.onMouseEnter();
         };
         _intObj.OnPrimaryHoverEnd += () =>
         {
-            Debug.Log($"primary hover end on {_button.name}");
+            // Debug.Log($"primary hover end on {_button.name}");
+            if (_buttonScript != null) _buttonScript.onMouseExit();
         };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_intObj != null && _button != null && _btnImage != null)
+        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !HandTracking.instance.isScrolling)
         {
+            // Debug.Log("ButtonInteraction Update called");
             Color finalColor = _defaultColor;
-               // If button is hovered then get its hovered color
-            // Debug.Log($"dist: {_intObj.closestHoveringControllerDistance} ({_button.name})");
-            // if (_intObj.isHovered && _intObj.closestHoveringControllerDistance <= hoverThreshold)
+              // If button is hovered then get its hovered color
             float dist = usePrimaryHover ? _intObj.primaryHoverDistance : _intObj.closestHoveringControllerDistance;
-            // if (dist != float.PositiveInfinity) Debug.Log($"{_button.name}: {dist}");
 
             bool flag = enableHoverThreshold && (dist != float.PositiveInfinity && (dist <= hoverThreshold));
-            // Debug.Log($"button name: {_button.name}, flag: {flag}, value: {dist}");
             if (_intObj.isPrimaryHovered && usePrimaryHover)
             {
                 // Debug.Log("Button hovered!");
@@ -75,7 +78,7 @@ public class ButtonInteraction : MonoBehaviour
             }
             else if(_intObj.isHovered && useHover)
             {
-                // Debug.Log("Button hovered!");
+                // Debug.Log("Button hovered!");    
                 finalColor = _button.colors.selectedColor;
             }
             else if(flag)
@@ -83,16 +86,26 @@ public class ButtonInteraction : MonoBehaviour
                 finalColor = _button.colors.disabledColor;
             }
             // Check if the button is clicked, and change the button color to corresponding color
-            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed)
+            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && _invokedCount < invokedThresholdBeforeIgnoring)
             {
                 finalColor = _button.colors.pressedColor;
-                // _button.onClick.Invoke();
+                ++_invokedCount;
+                _button.onClick.Invoke();
                 Debug.Log($"Button clicked!");
             }
             // No need to check if the button is hovered or pressed, to get the default color
             // As we already assign the _defaultColor variable to finalColor
-            _btnImage.color = Color.Lerp(_btnImage.color, finalColor, ColorTransition * Time.deltaTime);
+            if(requireImageComponent) _btnImage.color = Color.Lerp(_btnImage.color, finalColor, ColorTransition * Time.deltaTime);
         }
         else Debug.LogWarning("Either _intObj, _btnImage or _button is null!");
+    }
+
+    private void OnDestroy()
+    {
+        _button = null;
+        _intObj = null;
+        _buttonScript = null;
+        _btnImage = null;
+        _invokedCount = 0;
     }
 }

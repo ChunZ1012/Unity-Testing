@@ -11,12 +11,14 @@ public class HandTracking : MonoBehaviour
     [Header("Hand Setting")]
     public float startTriggeringGestureThreshold = 1.5f;
     [Header("Swipe Setting")]
+    public bool enableSwipe = true;
     public float SwipeFilterThreshold = 0.25f;
     [Tooltip("In second")]
     public float SwipeTimeoutDuration = 1f;
     public float handRotationUpperThreshold = 0.785f;
     public float handRotationLowerThreshold = 0.675f;
     [Header("Back Gesture Setting")]
+    public bool enableBackGesture = true;
     public float backGestureThreshold = 0.4f;
     public float thumbStrengthThreshold = 0.33f;
     public float indexStrengthThreshold = 0.725f;
@@ -39,11 +41,16 @@ public class HandTracking : MonoBehaviour
     public InteractionHand interactionLeftHand;
     public InteractionHand interactionRightHand;
     public float dist = 10;
+    public bool withLayerMask = false;
+    public int layerMaskID = 6;
     [Header("Misc")]
     public bool disableDataLogging = false;
-    
+
+    public static HandTracking instance;
+    public bool isScrolling = false;
     private void Awake()
     {
+        instance = this;
         _leadProvider.OnUpdateFrame += OnHandUpdated;
     }
     // Start is called before the first frame update
@@ -79,15 +86,31 @@ public class HandTracking : MonoBehaviour
             {
                 // Palm transform
                 Transform palmTransform = interactionRightHand.transform.GetChild(0);
-                if (Physics.Raycast(palmTransform.position, palmTransform.forward, out RaycastHit hit))
+                if(withLayerMask)
                 {
-                    Debug.DrawRay(palmTransform.position, palmTransform.forward * dist, Color.red);
-                    Debug.Log("Hit something");
+                    if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit, dist, layerMaskID))
+                    {
+                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
+                        Debug.Log($"Hit something, {hit.rigidbody.transform.name}");
+                    }
+                    else
+                    {
+                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.green);
+                        Debug.Log("Hit nothing");
+                    }
                 }
                 else
                 {
-                    Debug.DrawRay(palmTransform.position, palmTransform.forward * dist, Color.green);
-                    Debug.Log("Hit nothing");
+                    if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit))
+                    {
+                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
+                        Debug.Log($"Hit something, {hit.rigidbody.transform.name}");
+                    }
+                    else
+                    {
+                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * 10, Color.green);
+                        Debug.Log("Hit nothing");
+                    }
                 }
                 /*
                 foreach (Finger f in rightHand.Fingers)
@@ -162,11 +185,13 @@ public class HandTracking : MonoBehaviour
                     bool isPointingDownward = rotationX > 0;
                     if (!disableDataLogging) Debug.Log($"{(isPointingDownward ? "Hand down" : "Hand up")}, raw: {rotationX}, amplify: {rotationX * scrollAmplifyValue}");
 
-                    if(scrollRect != null)
+                    if (scrollRect != null)
                     {
                         scrollRect.verticalNormalizedPosition += (rotationX * scrollAmplifyValue);
                     }
+                    isScrolling = true;
                 }
+                else isScrolling = false;
 
                 /*
                 if (palmFlatPosY <= palmFlatUpperThreshold && palmFlatPosY >= palmFlatLowerThreshold && isHandFlatBasedOnRotation)
@@ -213,7 +238,7 @@ public class HandTracking : MonoBehaviour
             float handRotationX = handRotation.x * -1;
             bool isFingerCrawled = numOfFingersThresholdHit > (Mathf.CeilToInt(hand.Fingers.Count / 2));
             // Debug.Log($"handrotation y: {handRotationX}, is fin hit: {numOfFingersThresholdHit >= Mathf.CeilToInt(hand.Fingers.Count / 2)}, is rot hit: {handRotationX >= backGestureThreshold}");
-            if (isFingerCrawled && handRotationX >= backGestureThreshold)
+            if (isFingerCrawled && handRotationX >= backGestureThreshold && enableBackGesture)
             {
                 if (!disableDataLogging) Debug.Log("Go back gesture detected!");
                 // SceneLoader.instance.LoadMainMenu();
@@ -222,7 +247,7 @@ public class HandTracking : MonoBehaviour
 
             #region Swipe
             Vector3 handVelo = hand.PalmVelocity;
-            if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration)
+            if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration && enableSwipe)
             {
                 bool isHandVerticalBasedOnRotation = handRotationZ >= handRotationLowerThreshold && handRotationZ <= handRotationUpperThreshold;
                 // bool isHandFlat = handRotationW >= handRotationLowerThreshold && handRotationW <= handRotationUpperThreshold;
@@ -237,6 +262,9 @@ public class HandTracking : MonoBehaviour
                         // Temp disable the below code
                         //if (isSwipeLeft) SceneLoader.instance.LoadPrev();
                         // else SceneLoader.instance.LoadNext();
+
+                        if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
+                        else AutoFlipRaw.instance.FlipLeftPage(); 
 
                         _timePassedSinceLastSwipeTrigger = 0f;
                     }

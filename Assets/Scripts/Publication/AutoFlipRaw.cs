@@ -10,6 +10,13 @@ public class AutoFlipRaw : MonoBehaviour {
     public BookRaw ControledBook;
     public int AnimationFramesCount = 40;
     bool isFlipping = false;
+
+    public static AutoFlipRaw instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start () {
         if (!ControledBook)

@@ -3351,7 +3351,7 @@ MonoBehaviour:
   scaleZ: 1.1
   scaleTime: 0.5
   hoverColor: {r: 0, g: 0, b: 0, a: 0}
-  assignedPage: 
+  assignedPage: StaffLogin
 --- !u!114 &1784063635
 MonoBehaviour:
   m_ObjectHideFlags: 0
