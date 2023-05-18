@@ -10,6 +10,8 @@ public class HandTracking : MonoBehaviour
     public LeapProvider _leadProvider;
     [Header("Hand Setting")]
     public float startTriggeringGestureThreshold = 1.5f;
+    [Header("Click Setting")]
+    public bool enableClick = true;
     [Header("Swipe Setting")]
     public bool enableSwipe = true;
     public float SwipeFilterThreshold = 0.25f;
@@ -260,12 +262,17 @@ public class HandTracking : MonoBehaviour
                         bool isSwipeLeft = handVelo.x < 0;
                         if (!disableDataLogging) Debug.Log($"is swipe left: {isSwipeLeft}");
                         // Temp disable the below code
-                        if (isSwipeLeft) SceneLoader.instance.LoadPrev();
-                        else SceneLoader.instance.LoadNext();
 
-                        if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
-                        else AutoFlipRaw.instance.FlipLeftPage(); 
-
+                        if(SceneLoader.instance.currentSceneName == "PublicationBook")
+                        {
+                            if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
+                            else AutoFlipRaw.instance.FlipLeftPage();
+                        }
+                        else
+                        {
+                            if (isSwipeLeft) SceneLoader.instance.LoadPrev();
+                            else SceneLoader.instance.LoadNext();
+                        }
                         _timePassedSinceLastSwipeTrigger = 0f;
                     }
                     // else Debug.Log("Threshold not hitted!");

@@ -28,7 +28,7 @@ public class SceneLoader : MonoBehaviour
     private bool isSubPage = false;
 
     private bool firstTrigger = true;
-    private string currentSceneName;
+    public string currentSceneName;
     private string currentScenePath;
     private string currentSceneCategory;
     private string prevScene;

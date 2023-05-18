@@ -36,7 +36,7 @@ public class OpenPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // create popup panel
@@ -52,6 +52,8 @@ public class OpenPanel : MonoBehaviour
         textMeshProList[4].text = "Location: " + location;
 
         StartCoroutine(LoadImageFromUrl(image, popup.transform));
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(popup.transform as RectTransform);
 
         Debug.Log("yes: " + id + name + contact);
     }

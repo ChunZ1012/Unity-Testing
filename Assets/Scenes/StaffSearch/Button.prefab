@@ -385,3 +385,5 @@ MonoBehaviour:
   hoverThreshold: 0.15
   invokedThresholdBeforeIgnoring: 1
   requireImageComponent: 0
+  enableClickDelay: 1
+  enableClickDelaySecond: 0.75

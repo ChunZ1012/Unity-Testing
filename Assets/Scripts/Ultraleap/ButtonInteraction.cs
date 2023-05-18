@@ -92,7 +92,7 @@ public class ButtonInteraction : MonoBehaviour
                 finalColor = _button.colors.disabledColor;
             }
             // Check if the button is clicked, and change the button color to corresponding color
-            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && _invokedCount < invokedThresholdBeforeIgnoring)
+            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && _invokedCount < invokedThresholdBeforeIgnoring && HandTracking.instance.enableClick)
             {
                 finalColor = _button.colors.pressedColor;
                 ++_invokedCount;

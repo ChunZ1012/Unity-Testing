@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using TMPro;
-
-
+using UnityEngine.UI;
 
 public class StaffButton : MonoBehaviour
 {
@@ -65,7 +64,7 @@ public class StaffButton : MonoBehaviour
                         for (int i = 0; i < models.Count; i++)
                         {
                             StaffListModel model = models[i];
-                            GameObject btn = (GameObject)Instantiate(buttonStaff, scrollViewContent.transform);
+                            GameObject btn = Instantiate(buttonStaff, scrollViewContent.transform);
 
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = model.Name;
                             //send staff detail to display in staff detail popup
@@ -105,6 +104,8 @@ public class StaffButton : MonoBehaviour
                         slideStaff.Passedlist = alphabet;
                         slideStaff.Passedlist2 = alphabets;
                         slideStaff.Count();
+
+                        LayoutRebuilder.ForceRebuildLayoutImmediate(scrollViewContent.transform as RectTransform);
                     }
                     else
                     {

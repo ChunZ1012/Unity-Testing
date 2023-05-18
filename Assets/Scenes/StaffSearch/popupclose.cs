@@ -20,6 +20,6 @@ public class popupclose : MonoBehaviour
         StaffImage.sprite = null;
         Debug.Log("Close button clicked!");
         //deactivate panel
-        // this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }

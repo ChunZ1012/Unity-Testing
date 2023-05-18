@@ -15,7 +15,23 @@ public class LayoutGroupFix : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LayoutRebuilder.MarkLayoutForRebuild(go.transform as RectTransform);
+        if(go != null)
+        {
+            RebuidLayout();
+        }
+        else
+        {
+            if(this != null)
+            {
+                RebuidLayout();
+            }
+        }
+    }
+
+    private void RebuidLayout()
+    {
+        // See https://answers.unity.com/questions/1033789/panel-content-size-fitter-not-working.html
+        LayoutRebuilder.MarkLayoutForRebuild(this.transform as RectTransform);
         //LayoutRebuilder.ForceRebuildLayoutImmediate(go.transform as RectTransform);
         Canvas.ForceUpdateCanvases();
 

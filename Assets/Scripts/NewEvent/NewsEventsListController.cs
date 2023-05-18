@@ -12,7 +12,6 @@ public class NewsEventsListController : MonoBehaviour
     [Header("API Url")]
     public string baseUrl = "http://localhost:8080/api/content/list";
     public GameObject verticalContentContainer;
-    public float verticalContentSpacing = 30f;
     [Header("Content Prefab")]
     public GameObject horizontalContentPrefab;
     public GameObject contentPrefab;
@@ -47,37 +46,6 @@ public class NewsEventsListController : MonoBehaviour
 
             RequestData();
         }
-        // Fix the content size fitter collapsing issue
-        // See https://answers.unity.com/questions/1033789/panel-content-size-fitter-not-working.html
-        if(!disableImmediateRebuild)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(verticalContentContainer.transform as RectTransform);
-            // StartCoroutine(RebuildLayout());
-        }
-        /*
-        float totalContentHeight = 0f;
-        for(int i = 0; i < verticalContentContainer.transform.childCount; i++)
-        {
-            Transform contentTransform = verticalContentContainer.transform.GetChild(i).transform;
-            RectTransform contentRT = contentTransform.GetComponent<RectTransform>();
-
-            BoxCollider collider = contentTransform.GetComponentInChildren<BoxCollider>();
-            collider.size = new Vector3(contentRT.rect.width - 100, contentRT.rect.height - 50, 5);
-
-            if (i == 0) continue;
-            else
-            {
-                Transform prevContentTransform = verticalContentContainer.transform.GetChild(i - 1).transform;
-                RectTransform prevContentRT = prevContentTransform.GetComponent<RectTransform>();
-
-                contentTransform.position = new Vector3(contentTransform.position.x, contentTransform.position.y + prevContentRT.rect.height + verticalContentSpacing, contentTransform.position.z);
-
-                if (i == verticalContentContainer.transform.childCount - 1) totalContentHeight = contentTransform.position.y + contentRT.rect.height + verticalContentSpacing;
-            }
-        }
-
-        verticalContentContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(_ogVerticalContentSize.x, _ogVerticalContentSize.y + totalContentHeight);
-        */
     }
 
     public void RequestData()
@@ -129,6 +97,8 @@ public class NewsEventsListController : MonoBehaviour
                             }
                             */
                         }
+
+                        if (!disableImmediateRebuild) StartCoroutine(RebuildLayout());
                     }
                     else
                     {
@@ -151,7 +121,7 @@ public class NewsEventsListController : MonoBehaviour
         // Create content transform and set its parent
         contentTransform = Instantiate(contentPrefab, verticalContentPanel).transform;
 
-        Button contentButton = contentTransform.GetComponent<Button>();
+        Button contentButton = contentTransform.GetComponentInChildren<Button>();
         contentButton.onClick.AddListener(() =>
         {
             NewEventDetailController.CONTENT_ID = model.Id;
@@ -218,13 +188,7 @@ public class NewsEventsListController : MonoBehaviour
 
     private IEnumerator RebuildLayout()
     {
-        VerticalLayoutGroup g = verticalContentContainer.GetComponent<VerticalLayoutGroup>();
-        g.enabled = false;
-        yield return new WaitForEndOfFrame();
-        g.enabled = true;
-        /*
-        g.CalculateLayoutInputVertical();
+        yield return new WaitForSeconds(1f);
         LayoutRebuilder.ForceRebuildLayoutImmediate(verticalContentContainer.transform as RectTransform);
-        */
     }
 }
