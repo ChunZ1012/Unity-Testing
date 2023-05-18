@@ -131,16 +131,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _leadProvider: {fileID: 5438928124927155173}
+  startTriggeringGestureThreshold: 1.5
+  enableSwipe: 1
   SwipeFilterThreshold: 0.25
   SwipeTimeoutDuration: 1
   handRotationUpperThreshold: 0.78
   handRotationLowerThreshold: 0.675
+  enableBackGesture: 1
   backGestureThreshold: 0.4
   thumbStrengthThreshold: 0.33
   indexStrengthThreshold: 0.7
   middleStrengthThreshold: 0.7
   ringStrengthThreshold: 0.7
   pinkyStrengthThreshold: 0.5
+  enableScroll: 1
   scrollTimeoutDuration: 1.5
   palmFlatUpperThreshold: 0.175
   palmFlatLowerThreshold: -0.175
@@ -151,7 +155,10 @@ MonoBehaviour:
   interactionLeftHand: {fileID: 7075391950063814733}
   interactionRightHand: {fileID: 8222700154633137828}
   dist: 10
+  withLayerMask: 0
+  layerMaskID: 6
   disableDataLogging: 1
+  isScrolling: 0
 --- !u!1 &3516545933863545590
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +392,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 10
-  field of view: 60
+  field of view: 24
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
