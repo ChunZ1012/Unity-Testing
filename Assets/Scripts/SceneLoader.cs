@@ -100,53 +100,57 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadNext()
     {
-        if (currentSceneName != lastPage)
+        // Only allows users to swipe left or right when the scene is one of the sub-pages
+        if (isSubPage)
         {
-            string nextSceneName = getNextSceneNameByIndex(1);
-            PlayerPrefs.SetString("SwipeMethod", "Left");
-            StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft", transitionTime));
-        }
-        else
-        {
-            //Alert user on last page
-            alertAnim.SetTrigger("TriggerAlertLast");
+            if (currentSceneName != lastPage)
+            {
+                string nextSceneName = getNextSceneNameByIndex(1);
+                PlayerPrefs.SetString("SwipeMethod", "Left");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeLeft", transitionTime));
+            }
+            else
+            {
+                //Alert user on last page
+                alertAnim.SetTrigger("TriggerAlertLast");
+            }
         }
     }
     public void LoadPrev()
     {
-        if (currentSceneName != firstPage)
+        // Only allows users to swipe left or right when the scene is one of the sub-pages
+        if (isSubPage)
         {
-            string nextSceneName = getNextSceneNameByIndex(-1);
-            PlayerPrefs.SetString("SwipeMethod", "Right");
-            StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight", transitionTime));
-        }
-        else
-        {
-            //Alert user on first page
-            alertAnim.SetTrigger("TriggerAlertFirst");
+            if (currentSceneName != firstPage)
+            {
+                string nextSceneName = getNextSceneNameByIndex(-1);
+                PlayerPrefs.SetString("SwipeMethod", "Right");
+                StartCoroutine(PageLoader(nextSceneName, "TriggerSwipeRight", transitionTime));
+            }
+            else
+            {
+                //Alert user on first page
+                alertAnim.SetTrigger("TriggerAlertFirst");
+            }
         }
     }
     // Update is called once per frame
     void Update()
     {
-        // Loads Main Menu scene when the user press on backspace key (TODO: Change to trigger by hand swiping)
+        // Loads Main Menu scene when the user press on backspace key
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             LoadMainMenu();
         }
 
-        // Only allows users to swipe left or right when the scene is one of the sub-pages
-        if (isSubPage)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                LoadNext();
-            }
+            LoadNext();
+        }
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                LoadPrev();
-            }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            LoadPrev();
         }
     }
 
