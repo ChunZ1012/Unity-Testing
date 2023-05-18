@@ -33,6 +33,7 @@ public class SceneLoader : MonoBehaviour
     private string currentSceneCategory;
     private string prevScene;
 
+    private List<string> allSceneNames = new List<string>();
     string[] closingTransScenes = { "mainmenu", "submenuaboutus", "submenuwhatwedo", "", "newseventslistscene", "newseventsdetailsscene", "contactus", "stafflogin", "staffdetails" };
     string[] loadingTransScenes = { "publicationpage", "publicationbook" };
 

@@ -49,6 +49,10 @@ public class BookScript : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            // RequestData();
+        }
         // To fix content size fitter collapsing issue
         LayoutRebuilder.MarkLayoutForRebuild(contentContainer.transform as RectTransform);
     }
