@@ -115,6 +115,7 @@ public class ButtonScript : MonoBehaviour
 
     public void onClick()
     {
+        Debug.Log(SceneLoader.instance == null);
         SceneLoader.instance.LoadPage(assignedPage);
     }
 }

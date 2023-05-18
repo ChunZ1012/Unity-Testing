@@ -241,7 +241,7 @@ public class HandTracking : MonoBehaviour
             if (isFingerCrawled && handRotationX >= backGestureThreshold && enableBackGesture)
             {
                 if (!disableDataLogging) Debug.Log("Go back gesture detected!");
-                // SceneLoader.instance.LoadMainMenu();
+                SceneLoader.instance.LoadMainMenu();
             }
             #endregion
 
@@ -260,8 +260,8 @@ public class HandTracking : MonoBehaviour
                         bool isSwipeLeft = handVelo.x < 0;
                         if (!disableDataLogging) Debug.Log($"is swipe left: {isSwipeLeft}");
                         // Temp disable the below code
-                        //if (isSwipeLeft) SceneLoader.instance.LoadPrev();
-                        // else SceneLoader.instance.LoadNext();
+                        if (isSwipeLeft) SceneLoader.instance.LoadPrev();
+                        else SceneLoader.instance.LoadNext();
 
                         if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
                         else AutoFlipRaw.instance.FlipLeftPage(); 

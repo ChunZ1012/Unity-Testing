@@ -65,8 +65,8 @@ public class StaffButton : MonoBehaviour
                         for (int i = 0; i < models.Count; i++)
                         {
                             StaffListModel model = models[i];
-                            GameObject btn = (GameObject)Instantiate(buttonStaff);
-                            btn.transform.SetParent(scrollViewContent.transform);
+                            GameObject btn = (GameObject)Instantiate(buttonStaff, scrollViewContent.transform);
+
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = model.Name;
                             //send staff detail to display in staff detail popup
                             btn.GetComponent<OpenPanel>().image = model.Image;

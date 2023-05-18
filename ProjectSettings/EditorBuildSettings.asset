@@ -106,5 +106,5 @@ EditorBuildSettings:
     guid: b39517229f930df41bcfc4d746f74483
   - enabled: 1
     path: Assets/Scenes/StaffSearch/StaffDetails.unity
-    guid: fb945ffd3be504041bb127c7bf436ac9
+    guid: 0f58b9da6d4651546ad4e9e2eeba2c24
   m_configObjects: {}

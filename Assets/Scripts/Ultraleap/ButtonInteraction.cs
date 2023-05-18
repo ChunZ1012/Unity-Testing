@@ -1,4 +1,6 @@
 using Leap.Unity.Interaction;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +18,9 @@ public class ButtonInteraction : MonoBehaviour
     [Header("Misc")]
     public int invokedThresholdBeforeIgnoring = 1;
     public bool requireImageComponent = true;
+    public bool enableClickDelay = false;
+    [Tooltip("In seconds")]
+    public float enableClickDelaySecond = 0.25f;
 
     private int _invokedCount = 0;
     private ButtonScript _buttonScript;
@@ -63,7 +68,8 @@ public class ButtonInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !HandTracking.instance.isScrolling)
+        // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !HandTracking.instance.isScrolling)
+        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
         {
             // Debug.Log("ButtonInteraction Update called");
             Color finalColor = _defaultColor;
@@ -90,16 +96,29 @@ public class ButtonInteraction : MonoBehaviour
             {
                 finalColor = _button.colors.pressedColor;
                 ++_invokedCount;
-                _button.onClick.Invoke();
+                if (enableClickDelay)
+                {
+                    StartCoroutine(TriggerButtonClick());
+                }
+                else _button.onClick.Invoke();
+
                 Debug.Log($"Button clicked!");
             }
             // No need to check if the button is hovered or pressed, to get the default color
             // As we already assign the _defaultColor variable to finalColor
             if(requireImageComponent) _btnImage.color = Color.Lerp(_btnImage.color, finalColor, ColorTransition * Time.deltaTime);
         }
-        else Debug.LogWarning("Either _intObj, _btnImage or _button is null!");
-    }
+        else
+        {
+            Debug.LogWarning("Either _intObj, _btnImage or _button is null!");
+        }
 
+    }
+    private IEnumerator TriggerButtonClick()
+    {
+        yield return new WaitForSeconds(enableClickDelaySecond);
+        _button.onClick.Invoke();
+    }
     private void OnDestroy()
     {
         _button = null;
