@@ -1,12 +1,8 @@
 using HtmlAgilityPack;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NewEventDetailController : MonoBehaviour
 {
@@ -66,27 +62,14 @@ public class NewEventDetailController : MonoBehaviour
                 if(!resp.Error)
                 {
                     NewEventDetailModel model = JsonConvert.DeserializeObject<NewEventDetailModel>(resp.Data);
-                    // Add title into the text scroll view
-                    GameObject titleGO = Instantiate(contentTitlePrefab, contentTextContainer.transform);
-                    titleGO.GetComponent<TextMeshProUGUI>().text = model.Title;
-                    // Add publish time GO into the text scroll view
-                    GameObject timeGO = Instantiate(contentPublishTimePrefab, contentTextContainer.transform);
-                    timeGO.GetComponent<TextMeshProUGUI>().text = string.Format(timeGO.GetComponent<TextMeshProUGUI>().text, model.PublishTime.ToString("dd MMM, yyyy"));
-
+                    CreateTitleAndPublishTime(model);
                     // TODO: loop through each image object in model, pass the url to the slider and create respective content to text scroll view
                     for(int x = 0; x < model.Images.Count; x++)
                     {
                         NewEventImageModel imageModel = model.Images[x];
-                        Assets.SimpleSlider.Scripts.Banner banner = new Assets.SimpleSlider.Scripts.Banner();
-                        banner.Name = imageModel.ImageAltText;
-                        banner.Url = imageModel.ImageUrl;
-                        // Add banner to the slider
-                        _sliderScript.Banners.Add(banner);
-
-                        // Create text content that sit under text scoll vieww
-                        GameObject textContentGO = Instantiate(contentTextPrefab, contentTextContainer.transform);
-                        TextMeshProUGUI tmp = textContentGO.GetComponent<TextMeshProUGUI>();
-                        tmp.text = ParseHtml(imageModel.ImageContent);
+                        CreateBanner(imageModel);
+                        // Create text content that sit under text scoll view
+                        CreateTextContent(imageModel.ImageContent);
                     }
                     // Alert script to load images from url
                     // Use StartCoroutine to trigger the method as it return IEnumerator
@@ -94,11 +77,7 @@ public class NewEventDetailController : MonoBehaviour
                     if (!string.IsNullOrEmpty(model.Content))
                     {
                         // Create text content that sit under text scoll view
-                        GameObject textContentGO = Instantiate(contentTextPrefab, contentTextContainer.transform);
-                        TextMeshProUGUI tmp = textContentGO.GetComponent<TextMeshProUGUI>();
-                        tmp.text = ParseHtml(model.Content);
-                        // Set to unlinked text content, as the default prefab has a linked tag associated with it
-                        textContentGO.tag = "NewEventDetailTextContent";
+                        CreateTextContent(model.Content, true);
                     }
                 }
                 else
@@ -112,7 +91,34 @@ public class NewEventDetailController : MonoBehaviour
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
     }
-
+    private void CreateTitleAndPublishTime(NewEventDetailModel model)
+    {
+        // Add title into the text scroll view
+        GameObject titleGO = Instantiate(contentTitlePrefab, contentTextContainer.transform);
+        titleGO.GetComponent<TextMeshProUGUI>().text = model.Title;
+        // Add publish time GO into the text scroll view
+        GameObject timeGO = Instantiate(contentPublishTimePrefab, contentTextContainer.transform);
+        timeGO.GetComponent<TextMeshProUGUI>().text = string.Format(timeGO.GetComponent<TextMeshProUGUI>().text, model.PublishTime.ToString("dd MMM, yyyy"));
+    }
+    private void CreateBanner(NewEventImageModel imageModel)
+    {
+        Assets.SimpleSlider.Scripts.Banner banner = new Assets.SimpleSlider.Scripts.Banner();
+        banner.Name = imageModel.ImageAltText;
+        banner.Url = imageModel.ImageUrl;
+        // Add banner to the slider
+        _sliderScript.Banners.Add(banner);
+    }
+    private void CreateTextContent(string unparsedTextContent, bool isUnlinkedTextContent = false)
+    {
+        GameObject textContentGO = Instantiate(contentTextPrefab, contentTextContainer.transform);
+        TextMeshProUGUI tmp = textContentGO.GetComponent<TextMeshProUGUI>();
+        tmp.text = ParseHtml(unparsedTextContent);
+        if(isUnlinkedTextContent)
+        {
+            // Set to unlinked text content, as the default prefab has a linked tag associated with it
+            textContentGO.tag = "NewEventDetailTextContent";
+        }
+    }
     private void ClearContent()
     {
         Transform t = contentTextContainer.transform;
@@ -128,14 +134,10 @@ public class NewEventDetailController : MonoBehaviour
 
     private string ParseHtml(string html)
     {
-        string c = "";
-        // TODO: Consider to switch to AngleSharp, as it performs better when comes to large html document
         HtmlDocument doc = new HtmlDocument();
         doc.LoadHtml(html);
 
         HtmlNode node = doc.DocumentNode.SelectSingleNode("//div");
-        if (node != null) c = node.InnerText;
-
-        return c;
+        return node != null ? node.InnerText : string.Empty;
     }
 }

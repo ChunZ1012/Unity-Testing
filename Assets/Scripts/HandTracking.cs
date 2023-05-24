@@ -59,14 +59,12 @@ public class HandTracking : MonoBehaviour
 
     void Start()
     {
-        // _onScrollUp += OnScrollUpEvent.Invoke;
-        // _onScrollDown += OnScrollDownEvent.Invoke;
+        TryGetTheFirstActiveScrollView();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnApplicationQuit()
@@ -74,219 +72,187 @@ public class HandTracking : MonoBehaviour
         if(_leadProvider != null) _leadProvider.OnUpdateFrame -= OnHandUpdated;
     }
 
+    private void TryGetTheFirstActiveScrollView()
+    {
+        // Do not search for inactive object
+        ScrollRect possibleSR = FindFirstObjectByType<ScrollRect>(FindObjectsInactive.Exclude);
+        if (scrollRect == null && possibleSR != null)
+        {
+            scrollRect = possibleSR;
+        }
+        else Debug.LogWarning("Scroll Rect is not set! Please manually assign one before using scroll gesture!");
+    }
+
     private float _timePassedSinceHandFirstDetected = 0f;
     private float _timePassedSinceLastSwipeTrigger = 0f;
     private float _timePassedSinceLastScrollTrigger = 0f;
     private void OnHandUpdated(Frame frame)
     {
-        // Helper function to get hands
-        _leadProvider.CurrentFrame.GetHand(Chirality.Left);
-        Hand rightHand = _leadProvider.CurrentFrame.GetHand(Chirality.Right);
-        if(enableRaycast)
-        {
-            if (rightHand != null && interactionRightHand != null)
-            {
-                // Palm transform
-                Transform palmTransform = interactionRightHand.transform.GetChild(0);
-                if(withLayerMask)
-                {
-                    if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit, dist, layerMaskID))
-                    {
-                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
-                        Debug.Log($"Hit something, {hit.rigidbody.transform.name}");
-                    }
-                    else
-                    {
-                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.green);
-                        Debug.Log("Hit nothing");
-                    }
-                }
-                else
-                {
-                    if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit))
-                    {
-                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
-                        Debug.Log($"Hit something, {hit.rigidbody.transform.name}");
-                    }
-                    else
-                    {
-                        Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * 10, Color.green);
-                        Debug.Log("Hit nothing");
-                    }
-                }
-                /*
-                foreach (Finger f in rightHand.Fingers)
-                {
-                    if (f.Type == Finger.FingerType.TYPE_INDEX)
-                    {
-                        Vector3 tipPos = f.TipPosition;
-
-                        if (Physics.Raycast(rightHand.PalmNormal, rightHand.Direction, out RaycastHit hit))
-                        {
-                            Debug.DrawRay(rightHand.PalmNormal, rightHand.Direction * dist, Color.red);
-                            Debug.Log("Hit something");
-                        }
-                        else
-                        {
-                            Debug.DrawRay(rightHand.PalmNormal, rightHand.Direction * dist, Color.green);
-                            Debug.Log("Hit nothing");
-                        }
-                    }
-                }
-                */
-            }
-        }
-
         // If there is no hand detected
         // Then we reset the variables
         if (_leadProvider.CurrentFrame.Hands.Count == 0)
         {
-            _timePassedSinceLastSwipeTrigger = 0f;
-            _timePassedSinceLastScrollTrigger = 0f;
-            _timePassedSinceHandFirstDetected = 0f;
+            ResetGestureTrigger();
             return;
         }
         // Manual method to get hands
         for (int i = 0; i < _leadProvider.CurrentFrame.Hands.Count; i++)
         {
-            if (_timePassedSinceHandFirstDetected <= startTriggeringGestureThreshold)
-            {
-                _timePassedSinceHandFirstDetected += (Time.deltaTime / (_leadProvider.CurrentFrame.Hands.Count > 1 ? 2 : 1));
-            }
-
             Hand hand = _leadProvider.CurrentFrame.Hands[i];
-            Quaternion handRotation = hand.Rotation;
-            float handRotationZ = Math.Abs(handRotation.z);
-            int numOfFingersThresholdHit = 0;
-            
-            foreach (Finger f in hand.Fingers)
-            {
-                // d += (hand.GetFingerStrength((int)f.Type) + ", ");
-                bool isThresholdHit = hand.GetFingerStrength((int)f.Type) > GetPresetFingerThreshold(f.Type);
-                numOfFingersThresholdHit += (isThresholdHit ? 1 : 0);
-            }
 
-            // Debug.Log($"Position x: {hand.DistalAxis().x}, y: {hand.DistalAxis().y}, z: {hand.DistalAxis().z}");
-            #region Scroll
-            // If the scroll timeout threshold is hitted
-            if (_timePassedSinceLastScrollTrigger >= scrollTimeoutDuration && enableScroll)
-            {
-                // bool isHandFlatBasedOnRotation = handRotationW >= handRotationLowerThreshold || handRotationW <= handRotationUpperThreshold;
+            if(ShouldStartGestureDetection())
+                HandleGestureDetection(hand);
 
-                // ###
-                // -ve => Hand points upward
-                // +ve => Hand points downward
-                // ###
-                float rotationX = hand.Rotation.x;
-                bool isHandFlatBasedOnRotation = rotationX >= palmFlatLowerThreshold && rotationX <= palmFlatUpperThreshold;
-                bool isFingerAllStretched = numOfFingersThresholdHit == 0;
-                // Debug.Log($"stretch: {isFingerAllStretched}, num: {numOfFingersThresholdHit}");
-                // Fixed value for handRotaionZ comparison first
-                if (!isHandFlatBasedOnRotation && handRotationZ <= palmRotationZThreshold && isFingerAllStretched)
+            if (enableRaycast)
+                RaycastHand(hand);
+
+            IncreaseGestureTimers();
+        }
+    }
+ 
+    private void RaycastHand(Hand hand)
+    {
+        if (enableRaycast && hand != null)
+        {
+            InteractionHand interactioHand = hand.IsRight ? interactionRightHand : interactionLeftHand;
+            // Palm transform
+            Transform palmTransform = interactioHand.transform.GetChild(0);
+            if (withLayerMask)
+            {
+                int layerMaskShifted = 1 << layerMaskID;
+                if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit, dist, layerMaskShifted))
                 {
-                    bool isPointingDownward = rotationX > 0;
-                    if (!disableDataLogging) Debug.Log($"{(isPointingDownward ? "Hand down" : "Hand up")}, raw: {rotationX}, amplify: {rotationX * scrollAmplifyValue}");
-
-                    if (scrollRect != null)
-                    {
-                        scrollRect.verticalNormalizedPosition += (rotationX * scrollAmplifyValue);
-                    }
-                    isScrolling = true;
+                    Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
+                    Debug.Log($"Hit something, {hit.transform.name}, layerMaskId: {layerMaskShifted}");
                 }
-                else isScrolling = false;
-
-                /*
-                if (palmFlatPosY <= palmFlatUpperThreshold && palmFlatPosY >= palmFlatLowerThreshold && isHandFlatBasedOnRotation)
+                else
                 {
-                    // Debug.Log("Hand is ready to perform scroll gesture!");
+                    Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.green);
+                    Debug.Log("Hit nothing");
+                }
+            }
+            else
+            {
+                if (Physics.Raycast(palmTransform.position, palmTransform.TransformDirection(Vector3.forward), out RaycastHit hit))
+                {
+                    Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * dist, Color.red);
+                    Debug.Log($"Hit something, {hit.transform.name}");
+                }
+                else
+                {
+                    Debug.DrawRay(palmTransform.position, palmTransform.TransformDirection(Vector3.forward) * 10, Color.green);
+                    Debug.Log("Hit nothing");
+                }
+            }
+        }
+    }
+    private void ResetGestureTrigger()
+    {
+        _timePassedSinceLastSwipeTrigger = 0f;
+        _timePassedSinceLastScrollTrigger = 0f;
+        _timePassedSinceHandFirstDetected = 0f;
+    }
+    private bool ShouldStartGestureDetection()
+    {
+        _timePassedSinceHandFirstDetected += (Time.deltaTime / (_leadProvider.CurrentFrame.Hands.Count > 1 ? 2 : 1));
+        return _timePassedSinceHandFirstDetected >= startTriggeringGestureThreshold;
+    }
+    private void HandleGestureDetection(Hand hand)
+    {
+        float handRotationX = hand.Rotation.x;
+        float absHandRotationZ = Math.Abs(hand.Rotation.z);
+        int numOfFingersThresholdHit = 0;
+        foreach (Finger f in hand.Fingers)
+        {
+            // d += (hand.GetFingerStrength((int)f.Type) + ", ");
+            bool isThresholdHit = hand.GetFingerStrength((int)f.Type) > GetPresetFingerThreshold(f.Type);
+            numOfFingersThresholdHit += (isThresholdHit ? 1 : 0);
+        }
 
-                    float palmCurrentPosY = hand.DistalAxis().y;
-                    // Pointing down
-                    if(palmCurrentPosY < 0)
+        if(enableScroll)
+            HandleScrollGesture(handRotationX, absHandRotationZ, numOfFingersThresholdHit);
+        if (enableBackGesture)
+            HandleBackGesture(handRotationX, numOfFingersThresholdHit, hand.Fingers.Count);
+        if (enableSwipe)
+            HandleSwipeGesture(hand.PalmVelocity, absHandRotationZ);
+    }
+    private void IncreaseGestureTimers()
+    {
+        _timePassedSinceLastScrollTrigger += Time.deltaTime;
+        _timePassedSinceLastSwipeTrigger += Time.deltaTime;
+    }
+    private void HandleSwipeGesture(Vector3 handVelo, float handRotationZ)
+    {
+        if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration)
+        {
+            bool isHandVerticalBasedOnRotation = handRotationZ >= handRotationLowerThreshold && handRotationZ <= handRotationUpperThreshold;
+            // bool isHandFlat = handRotationW >= handRotationLowerThreshold && handRotationW <= handRotationUpperThreshold;
+            if (isHandVerticalBasedOnRotation)
+            {
+                if (!disableDataLogging) Debug.Log($"Hand is ready for performing swipe gesture! magnitude: {handVelo.magnitude}");
+                if (Mathf.Abs(handVelo.x) >= SwipeFilterThreshold)
+                {
+                    bool isSwipeLeft = handVelo.x < 0;
+                    if (!disableDataLogging) Debug.Log($"is swipe left: {isSwipeLeft}");
+
+                    if (SceneLoader.instance.currentSceneName == "PublicationBook")
                     {
-                        _onScrollDown.Invoke(palmCurrentPosY);
+                        if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
+                        else AutoFlipRaw.instance.FlipLeftPage();
                     }
                     else
                     {
-                        _onScrollUp.Invoke(palmCurrentPosY);
+                        if (isSwipeLeft) SceneLoader.instance.LoadNext();
+                        else SceneLoader.instance.LoadPrev();
                     }
-
-                    // Get scrolling velocity (if any)
-                    float palmVeloY = hand.PalmVelocity.y;
-                    if (palmVeloY <= (scrollDownGestureThreshold * -1))
-                    {
-                        // Debug.Log("Scrolled down!");
-                        
-                        _timePassedSinceLastScrollTrigger = 0f;
-                    }
-                    else if (palmVeloY >= scrollUpGestureThreshold)
-                    {
-                        // Debug.Log("Scolled up!");
-                        
-                        _timePassedSinceLastScrollTrigger = 0f;
-                    }
-                }
-                */
-            }
-            #endregion
-            // Debug.Log($"minY: {minY}, maxY: {maxY}");
-            // Debug.Log($"x: {hand.PalmarAxis().x}, y: {hand.PalmarAxis().y}, z: {hand.PalmarAxis().z}");
-            #region Back Gesture
-            // Debug.Log($"finger: {d}");
-            // Debug.Log($"return? {(numOfFingersThresholdHit >= (Mathf.CeilToInt(hand.Fingers.Count / 2)) && Mathf.Abs(hand.PalmarAxis().y) <= 0.5)}, y: {Mathf.Abs(hand.PalmarAxis().y)}");
-            // If hit the go back gesture threshold
-            // Then go back
-            // float handRotationY = hand.PalmarAxis().y;
-            float handRotationX = handRotation.x * -1;
-            bool isFingerCrawled = numOfFingersThresholdHit > (Mathf.CeilToInt(hand.Fingers.Count / 2));
-            // Debug.Log($"handrotation y: {handRotationX}, is fin hit: {numOfFingersThresholdHit >= Mathf.CeilToInt(hand.Fingers.Count / 2)}, is rot hit: {handRotationX >= backGestureThreshold}");
-            if (isFingerCrawled && handRotationX >= backGestureThreshold && enableBackGesture)
-            {
-                if (!disableDataLogging) Debug.Log("Go back gesture detected!");
-                SceneLoader.instance.LoadMainMenu();
-            }
-            #endregion
-
-            #region Swipe
-            Vector3 handVelo = hand.PalmVelocity;
-            if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration && enableSwipe)
-            {
-                bool isHandVerticalBasedOnRotation = handRotationZ >= handRotationLowerThreshold && handRotationZ <= handRotationUpperThreshold;
-                // bool isHandFlat = handRotationW >= handRotationLowerThreshold && handRotationW <= handRotationUpperThreshold;
-                if (isHandVerticalBasedOnRotation)
-                {
-                    if (!disableDataLogging) Debug.Log("Hand is ready for performing swipe gesture!");
-                    if (!disableDataLogging) Debug.Log($"magnitude: " + hand.PalmVelocity.magnitude);
-                    if (Mathf.Abs(handVelo.x) >= SwipeFilterThreshold)
-                    {
-                        bool isSwipeLeft = handVelo.x < 0;
-                        if (!disableDataLogging) Debug.Log($"is swipe left: {isSwipeLeft}");
-                        // Temp disable the below code
-
-                        if(SceneLoader.instance.currentSceneName == "PublicationBook")
-                        {
-                            if (isSwipeLeft) AutoFlipRaw.instance.FlipRightPage();
-                            else AutoFlipRaw.instance.FlipLeftPage();
-                        }
-                        else
-                        {
-                            if (isSwipeLeft) SceneLoader.instance.LoadPrev();
-                            else SceneLoader.instance.LoadNext();
-                        }
-                        _timePassedSinceLastSwipeTrigger = 0f;
-                    }
-                    // else Debug.Log("Threshold not hitted!");
+                    _timePassedSinceLastSwipeTrigger = 0f;
                 }
             }
-            // else Debug.Log("Not within the time diff");
-            #endregion
-            // Increase the time
         }
-        _timePassedSinceLastScrollTrigger += Time.deltaTime;
-        _timePassedSinceLastSwipeTrigger += Time.deltaTime;
-
     }
- 
+    private void HandleBackGesture(float handRotationX, int numOfFingersThresholdHit, int totalFingersCount)
+    {
+        // If hit the go back gesture threshold
+        // Then go back
+        bool isFingerCrawled = numOfFingersThresholdHit >= (Mathf.CeilToInt(totalFingersCount / 2));
+        float reversedRotationX = handRotationX * -1;
+        if(!disableDataLogging) Debug.Log($"HandleBackGesture called, isFingerCrawled: {isFingerCrawled}, hand rotation: {reversedRotationX}, threshold: {backGestureThreshold}");
+        if (isFingerCrawled && reversedRotationX >= backGestureThreshold && enableBackGesture)
+        {
+            if (!disableDataLogging) Debug.Log("Go back gesture detected!");
+            SceneLoader.instance.LoadMainMenu();
+        }
+    }
+    private void HandleScrollGesture(float rotationX, float handRotationZ, int numOfFingersThresholdHit)
+    {
+        // If the scroll timeout threshold is hitted
+        if (_timePassedSinceLastScrollTrigger >= scrollTimeoutDuration)
+        {
+            if (!disableDataLogging) Debug.Log("Timeout hit");
+            // ###
+            // rotationX 
+            // -ve => Hand points upward
+            // +ve => Hand points downward
+            // ###
+            bool isHandFlatBasedOnRotation = rotationX >= palmFlatLowerThreshold && rotationX <= palmFlatUpperThreshold;
+            bool isFingerAllStretched = numOfFingersThresholdHit == 0;
+            // Debug.Log($"stretch: {isFingerAllStretched}, num: {numOfFingersThresholdHit}");
+            // Fixed value for handRotaionZ comparison first
+            if (!isHandFlatBasedOnRotation && handRotationZ <= palmRotationZThreshold && isFingerAllStretched)
+            {
+                bool isPointingDownward = rotationX > 0;
+                if (!disableDataLogging) Debug.Log($"{(isPointingDownward ? "Hand down" : "Hand up")}, raw: {rotationX}, amplify: {rotationX * scrollAmplifyValue}");
+
+                if (scrollRect != null)
+                {
+                    scrollRect.verticalNormalizedPosition += (rotationX * scrollAmplifyValue);
+                }
+                isScrolling = true;
+            }
+            else isScrolling = false;
+        }
+    }
+
     private float GetPresetFingerThreshold(Finger.FingerType type)
     {
         float threshold;

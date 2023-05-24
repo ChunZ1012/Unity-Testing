@@ -112,10 +112,12 @@ public class ButtonScript : MonoBehaviour
             Debug.LogError($"{e.Message}, {e.StackTrace}");
         }
     }
-
     public void onClick()
     {
         Debug.Log(SceneLoader.instance == null);
-        SceneLoader.instance.LoadPage(assignedPage);
+        if (assignedPage != null && !string.IsNullOrEmpty(assignedPage))
+        {
+            SceneLoader.instance.LoadPage(assignedPage);
+        }
     }
 }
