@@ -97,7 +97,7 @@ EditorBuildSettings:
     guid: 7c9c50af77196854f8862bd5bd8475ad
   - enabled: 1
     path: Assets/Scenes/Publications/PublicationPage.unity
-    guid: 72eecc8aeb7004a1aaf8988cfe297357
+    guid: aa1ca8453ec5fc249ac4051b08ed270b
   - enabled: 1
     path: Assets/Scenes/Publications/PublicationBook.unity
     guid: 9f01d35f4757941589b48cb3b49bc0fe

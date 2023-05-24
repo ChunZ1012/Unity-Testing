@@ -134,12 +134,12 @@ MonoBehaviour:
   startTriggeringGestureThreshold: 1.5
   enableClick: 1
   enableSwipe: 1
-  SwipeFilterThreshold: 0.25
+  SwipeFilterThreshold: 0.28
   SwipeTimeoutDuration: 1
-  handRotationUpperThreshold: 0.78
-  handRotationLowerThreshold: 0.675
+  handRotationUpperThreshold: 0.89
+  handRotationLowerThreshold: 0.55
   enableBackGesture: 1
-  backGestureThreshold: 0.4
+  backGestureThreshold: 0.42
   thumbStrengthThreshold: 0.33
   indexStrengthThreshold: 0.7
   middleStrengthThreshold: 0.7
@@ -320,7 +320,7 @@ MonoBehaviour:
     _values:
     - {fileID: 7075391950063814733}
     - {fileID: 8222700154633137828}
-  hoverActivationRadius: 0.175
+  hoverActivationRadius: 0.2
   touchActivationRadius: 0.075
   multiGraspHoldingMode: 0
   _autoGenerateLayers: 1

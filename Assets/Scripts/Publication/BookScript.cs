@@ -40,9 +40,13 @@ public class BookScript : MonoBehaviour
     // For rebuilding
     public GameObject contentContainer;
 
+    private Transform inspireBookShelf;
+    private Transform pastBookShelf;
     // Start is called before the first frame update
     void Start()
     {
+        inspireBookShelf = inspirePublicationContainer.Find("Background");
+        pastBookShelf = pastPublicationContainer.Find("Background");
         // Call RequestData() function to retrieve data from API
         RequestData();
     }
@@ -51,7 +55,9 @@ public class BookScript : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
-            // RequestData();
+            RemoveAllChildren(inspireBookShelf);
+            RemoveAllChildren(pastBookShelf);
+            RequestData();
         }
         // To fix content size fitter collapsing issue
         LayoutRebuilder.MarkLayoutForRebuild(contentContainer.transform as RectTransform);
@@ -238,5 +244,16 @@ public class BookScript : MonoBehaviour
             // Load cover image onto component
             imageComponent.sprite = imgSprite;
         });
+    }
+
+    private void RemoveAllChildren(Transform parentTransform)
+    {
+        for (int i = 0; i < parentTransform.childCount; i++)
+        {
+            Transform child = parentTransform.GetChild(i);
+            Debug.Log($"{i}: {parentTransform.name}: {child.name}");
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
     }
 }

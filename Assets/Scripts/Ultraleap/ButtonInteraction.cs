@@ -19,6 +19,7 @@ public class ButtonInteraction : MonoBehaviour
     public int invokedThresholdBeforeIgnoring = 1;
     public bool requireImageComponent = true;
     public bool enableClickDelay = false;
+    public bool enableAnimation = true;
     [Tooltip("In seconds")]
     public float enableClickDelaySecond = 0.25f;
 
@@ -35,41 +36,32 @@ public class ButtonInteraction : MonoBehaviour
         _intObj = GetComponent<InteractionBehaviour>();
         _button = GetComponent<Button>();
         if(requireImageComponent) _btnImage = GetComponent<Image>();
-
         _buttonScript = GetComponent<ButtonScript>();
-
         if (_button != null) _defaultColor = _button.colors.normalColor;
-        /*
-        _intObj.overrideInteractionLayer = true;
-        _intObj.rigidbody.isKinematic = false;
-        foreach(Collider cd in _intObj.primaryHoverColliders)
-        {
-            cd.isTrigger = false;
-            cd.enabled = true;
-        }
-        */
+
         _intObj.OnSuspensionBegin += (controller) =>
         {
             Debug.Log($"suspend begin on {controller.name}");
         };
         _intObj.OnPrimaryHoverBegin += () =>
         {
-            // Debug.Log($"primary hover begin on {_button.name}");
+            Debug.Log($"primary hover begin on {_button.name}");
 
-            if (_buttonScript != null) _buttonScript.onMouseEnter();
+            if (_buttonScript != null && enableAnimation) _buttonScript.onMouseEnter();
         };
         _intObj.OnPrimaryHoverEnd += () =>
         {
-            // Debug.Log($"primary hover end on {_button.name}");
-            if (_buttonScript != null) _buttonScript.onMouseExit();
+            Debug.Log($"primary hover end on {_button.name}");
+            if (_buttonScript != null && enableAnimation) _buttonScript.onMouseExit();
         };
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !HandTracking.instance.isScrolling)
-        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
+        bool ignoreOnScroll = HandTracking.instance != null ? HandTracking.instance.isScrolling : false;
+        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !ignoreOnScroll)
+        // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
         {
             // Debug.Log("ButtonInteraction Update called");
             Color finalColor = _defaultColor;
@@ -96,11 +88,8 @@ public class ButtonInteraction : MonoBehaviour
             {
                 finalColor = _button.colors.pressedColor;
                 ++_invokedCount;
-                if (enableClickDelay)
-                {
-                    StartCoroutine(TriggerButtonClick());
-                }
-                else _button.onClick.Invoke();
+
+                TriggerButtonClick();
 
                 Debug.Log($"Button clicked!");
             }
@@ -114,7 +103,16 @@ public class ButtonInteraction : MonoBehaviour
         }
 
     }
-    private IEnumerator TriggerButtonClick()
+    private void TriggerButtonClick()
+    {
+        if (enableClickDelay)
+        {
+            StartCoroutine(DelayTriggerButtonClick());
+        }
+        else _button.onClick.Invoke();
+        Debug.Log("Button clicked!");
+    }
+    private IEnumerator DelayTriggerButtonClick()
     {
         yield return new WaitForSeconds(enableClickDelaySecond);
         _button.onClick.Invoke();

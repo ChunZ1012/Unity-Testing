@@ -89,7 +89,7 @@ public class AnimatorController : MonoBehaviour
                     // Calculated position y
                     float ch = alternateCalc ? (cy + contentHeight) : cy;
                     bool isThresholdHit = (ch >= (contentHeight * animationTriggerThreshold));
-                    Debug.Log($"name: {content.name}, original pos y: {cy}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, scrolled y: {scrolledPosition.y}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
+                    // Debug.Log($"name: {content.name}, original pos y: {cy}, calculated pos y: {ch}, normalized y: {ch / _viewportHeight}, scrolled y: {scrolledPosition.y}, threshold: {contentHeight * animationTriggerThreshold}, triggered: {isThresholdHit}");
                     // Trigger animation
                     if (isThresholdHit) selfAnimator.SetBool("content_slide_in", true);
                     // Debug.Log($"screenpos: {_camera.WorldToScreenPoint(content.transform.position)}");
