@@ -67,35 +67,8 @@ public class NewsEventsListController : MonoBehaviour
                         for (int i = 0; i < models.Count; i++)
                         {
                             NewEventListModel model = models[i];
-                            // Create horizontal content panel to hold the content, and set its parent
-                            // Transform horizontalContentPanel = Instantiate(horizontalContentPrefab, verticalContentContainer.transform).transform;
-                            // Create left content object
                             CreateContentFromData(model, verticalContentContainer.transform, out Transform contentTransform);
                             contentTransform.name = string.Format("Content {0}", (i + 1));
-                            /*
-                            // If the next counter has not reach the end of the list
-                            // then add the right content to the horizontal panel
-                            if (i + 1 < models.Count)
-                            {
-                                model = models[i + 1];
-                                CreateContentFromData(model, newEventVerticalContainer.content, out contentTransform);
-                            }
-                            else
-                            {
-                                for(int x = 0; x < contentTransform.GetChild(0).childCount; x++)
-                                {
-                                    Transform child = contentTransform.GetChild(0).GetChild(x);
-                                    if(child.name == "TextContainer")
-                                    {
-                                        RectTransform childRt = child.GetChild(1).GetComponent<RectTransform>();
-                                        Vector2 newSize = new Vector2(1450, childRt.sizeDelta.y);
-
-                                        childRt.sizeDelta = newSize;
-                                        child.GetChild(0).GetComponent<RectTransform>().sizeDelta = newSize;
-                                    }
-                                }
-                            }
-                            */
                         }
 
                         if (!disableImmediateRebuild) StartCoroutine(RebuildLayout());
@@ -148,16 +121,17 @@ public class NewsEventsListController : MonoBehaviour
             // Set title and description
             else if(contentChildTransform.name.Equals("TextContainer"))
             {
-                Transform titleTransform = contentChildTransform.GetChild(0);
-                titleTransform.GetComponent<TextMeshProUGUI>().text = model.Title;
-
-                Transform descTransform = contentChildTransform.GetChild(1);
-                descTransform.GetComponent<TextMeshProUGUI>().text = model.PublishedDate;
-
-                // Rebuild layout, fixing the vertical layout group not working issue
-                // LayoutRebuilder.ForceRebuildLayoutImmediate(contentChildTransform as RectTransform);
+                CreateContentTItleAndDescription(contentChildTransform, model);
             }
         }
+    }
+    private void CreateContentTItleAndDescription(Transform contentChildTransform, NewEventListModel model)
+    {
+        Transform titleTransform = contentChildTransform.GetChild(0);
+        titleTransform.GetComponent<TextMeshProUGUI>().text = model.Title;
+
+        Transform descTransform = contentChildTransform.GetChild(1);
+        descTransform.GetComponent<TextMeshProUGUI>().text = model.PublishedDate;
     }
     private IEnumerator LoadImageFromUrl(string url, Transform contentImagePanel)
     {
@@ -190,5 +164,16 @@ public class NewsEventsListController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         LayoutRebuilder.ForceRebuildLayoutImmediate(verticalContentContainer.transform as RectTransform);
+        /*
+        for(int i = 0; i < verticalContentContainer.transform.childCount; i++)
+        {
+            Transform contentContainer = verticalContentContainer.transform.GetChild(i);
+
+            RectTransform contentRT = contentContainer.GetComponentInChildren<RectTransform>();
+            BoxCollider bc = contentContainer.GetComponentInChildren<BoxCollider>();
+            bc.size = new Vector3(contentRT.rect.width, contentRT.rect.height, bc.size.z);
+            Debug.Log($"size: {contentRT.rect.width}, {contentRT.rect.height}");
+        }
+        */
     }
 }
