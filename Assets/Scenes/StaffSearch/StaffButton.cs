@@ -12,7 +12,7 @@ public class StaffButton : MonoBehaviour
     public GameObject scrollViewContent;
     public GameObject buttonStaff;
     public GameObject popup;
-    public OpenPanel openPanel;
+    public OpenPanel openPanelScript;
     public SlideStaff slideStaff;
     public Texture2D imageNotAvailableTexture;
 
@@ -30,8 +30,7 @@ public class StaffButton : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("ReqController started!");       
-        PassObjectToAnotherScript();
+        Debug.Log("ReqController started!");
         RequestData();
         z = 0;
     }
@@ -65,8 +64,8 @@ public class StaffButton : MonoBehaviour
                         {
                             StaffListModel model = models[i];
                             GameObject btn = Instantiate(buttonStaff, scrollViewContent.transform);
-
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = model.Name;
+                            /*
                             //send staff detail to display in staff detail popup
                             btn.GetComponent<OpenPanel>().image = model.Image;
                             btn.GetComponent<OpenPanel>().id = model.Id;
@@ -76,6 +75,13 @@ public class StaffButton : MonoBehaviour
                             btn.GetComponent<OpenPanel>().position = model.Position;
                             btn.GetComponent<OpenPanel>().location = model.Location;
                             btn.GetComponent<OpenPanel>().imageNotAvailableTexture = imageNotAvailableTexture;
+                            btn.GetComponent<OpenPanel>().content = content;
+                            */
+                            btn.GetComponent<Button>().onClick.AddListener(() =>
+                            {
+                                OpenPanel.model = model;
+                                openPanelScript.ShowPanel();
+                            });
 
                             string str = model.Name;
                             string cutstr = str.Substring(0, 1);
@@ -123,12 +129,5 @@ public class StaffButton : MonoBehaviour
         {
             Debug.LogWarning($"{e.Message}\n{e.StackTrace}");
         }
-    }
-
-    void PassObjectToAnotherScript()
-    {
-        //Code to pass the object to OpenPanel class
-        openPanel.PassedGameObject = popup;
-        
     }
 }

@@ -8,14 +8,10 @@ using System.Linq;
 
 public class OpenPanel : MonoBehaviour
 {
-    public string image;
-    public int id;
-    public string name;
-    public string contact;
-    public string email;
-    public string position;
-    public string location;
+    public static StaffListModel model;
+
     public GameObject popup;
+    public GameObject panel;
     public Texture2D imageNotAvailableTexture;
 
     public GameObject PassedGameObject
@@ -38,24 +34,22 @@ public class OpenPanel : MonoBehaviour
     {
 
     }
-
-    // create popup panel
-    public void CreatePanel() {
-        popup.gameObject.SetActive(true); //activate the panel
+    public void ShowPanel()
+    {
+        panel.gameObject.SetActive(false);
+        popup.gameObject.SetActive(true); //activate the popup
         //show staff detail inside popup
         TMPro.TextMeshProUGUI[] textMeshProList;
         textMeshProList = popup.GetComponentsInChildren<TextMeshProUGUI>();
-        textMeshProList[0].text = "Name: " + name;
-        textMeshProList[1].text = "Contact: " + contact;
-        textMeshProList[2].text = "Email: " + email;
-        textMeshProList[3].text = "Position: " + position;
-        textMeshProList[4].text = "Location: " + location;
+        textMeshProList[0].text = "Name: " + model.Name;
+        textMeshProList[1].text = "Contact: " + model.Contact;
+        textMeshProList[2].text = "Email: " + model.Email;
+        textMeshProList[3].text = "Position: " + model.Position;
+        textMeshProList[4].text = "Location: " + model.Location;
 
-        StartCoroutine(LoadImageFromUrl(image, popup.transform));
+        StartCoroutine(LoadImageFromUrl(model.Image, popup.transform));
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(popup.transform as RectTransform);
-
-        Debug.Log("yes: " + id + name + contact);
     }
 
     private IEnumerator LoadImageFromUrl(string url, Transform popup)

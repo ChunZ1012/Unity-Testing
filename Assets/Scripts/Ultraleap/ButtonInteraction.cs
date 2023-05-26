@@ -60,8 +60,10 @@ public class ButtonInteraction : MonoBehaviour
     void Update()
     {
         bool ignoreOnScroll = HandTracking.instance != null ? HandTracking.instance.isScrolling : false;
-        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !ignoreOnScroll)
+        Debug.Log($"obj: {_intObj == null}, btn: {_button == null}, img: {(!requireImageComponent || _btnImage != null)}, is: {ignoreOnScroll}"); 
+        // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !ignoreOnScroll)
         // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
+        if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
         {
             // Debug.Log("ButtonInteraction Update called");
             Color finalColor = _defaultColor;
@@ -83,6 +85,7 @@ public class ButtonInteraction : MonoBehaviour
             {
                 finalColor = _button.colors.disabledColor;
             }
+            Debug.Log($"pressed: {(_intObj as InteractionButton).isPressed }");
             // Check if the button is clicked, and change the button color to corresponding color
             if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && _invokedCount < invokedThresholdBeforeIgnoring && HandTracking.instance.enableClick)
             {

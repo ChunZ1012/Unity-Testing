@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//Close popup panel when pressing close button
+//Close popup scrollVIew when pressing close button
 public class popupclose : MonoBehaviour
 {
     public Button button;
     public Image StaffImage;
+    public GameObject panel;
     // Start is called before the first frame update
-    void Start()
+
+    private void OnEnable()
     {
         //wait for button click and call TaskOnClick
+        // Close button
         button.onClick.AddListener(TaskOnClick);
+    }
+
+    private void OnDisable()
+    {
+        button.onClick.RemoveAllListeners();
     }
 
     void TaskOnClick()
     {
         StaffImage.sprite = null;
         Debug.Log("Close button clicked!");
-        //deactivate panel
+
+        //deactivate scrollVIew
         this.gameObject.SetActive(false);
-    }
+        this.panel.SetActive(true);
+    } 
 }

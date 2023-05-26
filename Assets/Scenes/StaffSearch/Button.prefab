@@ -161,10 +161,10 @@ GameObject:
   - component: {fileID: 4906250236948621489}
   - component: {fileID: 3739444947467352178}
   - component: {fileID: 8541615965439721015}
-  - component: {fileID: 5218197366679436135}
   - component: {fileID: 8127408601634484967}
   - component: {fileID: 5659062867033799867}
   - component: {fileID: 2131444154224067410}
+  - component: {fileID: 8949258068643873708}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -274,40 +274,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3739444947467352178}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5218197366679436135}
-        m_TargetAssemblyTypeName: OpenPanel, Assembly-CSharp
-        m_MethodName: CreatePanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5218197366679436135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6875204588632831406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1cd18cdc1593894c9896bad89529551, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: 
-  id: 0
-  name: 
-  contact: 
-  email: 
-  position: 
-  location: 
-  popup: {fileID: 0}
-  imageNotAvailableTexture: {fileID: 0}
+      m_Calls: []
 --- !u!54 &8127408601634484967
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,7 +314,7 @@ MonoBehaviour:
   _allowMultiGrasp: 0
   _moveObjectWhenGrasped: 1
   graspedMovementType: 2
-  _overrideInteractionLayer: 1
+  _overrideInteractionLayer: 0
   _interactionLayer:
     layerIndex: 5
   _overrideNoContactLayer: 0
@@ -383,7 +350,26 @@ MonoBehaviour:
   ColorTransition: 30
   enableHoverThreshold: 0
   hoverThreshold: 0.15
-  invokedThresholdBeforeIgnoring: 1
+  invokedThresholdBeforeIgnoring: 9999
   requireImageComponent: 0
   enableClickDelay: 1
+  enableAnimation: 1
   enableClickDelaySecond: 0.75
+--- !u!114 &8949258068643873708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6875204588632831406}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282943003709b3b49af35b56e5687f25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleX: 1.1
+  scaleY: 1.1
+  scaleZ: 1.1
+  scaleTime: 0.5
+  hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  assignedPage: 
