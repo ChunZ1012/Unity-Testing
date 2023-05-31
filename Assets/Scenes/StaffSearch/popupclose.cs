@@ -28,8 +28,14 @@ public class popupclose : MonoBehaviour
         StaffImage.sprite = null;
         Debug.Log("Close button clicked!");
 
+        this.panel.SetActive(true);
         //deactivate scrollVIew
         this.gameObject.SetActive(false);
-        this.panel.SetActive(true);
+        // StartCoroutine(ShowPanel());
     } 
+
+    private IEnumerator ShowPanel()
+    {
+        yield return new WaitForSeconds(0.5f);
+    }
 }

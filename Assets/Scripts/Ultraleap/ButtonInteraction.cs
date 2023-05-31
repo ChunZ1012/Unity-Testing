@@ -60,7 +60,7 @@ public class ButtonInteraction : MonoBehaviour
     void Update()
     {
         bool ignoreOnScroll = HandTracking.instance != null ? HandTracking.instance.isScrolling : false;
-        Debug.Log($"obj: {_intObj == null}, btn: {_button == null}, img: {(!requireImageComponent || _btnImage != null)}, is: {ignoreOnScroll}"); 
+        // Debug.Log($"obj: {_intObj == null}, btn: {_button == null}, img: {(!requireImageComponent || _btnImage != null)}, is: {ignoreOnScroll}"); 
         // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null) && !ignoreOnScroll)
         // if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
         if (_intObj != null && _button != null && (!requireImageComponent || _btnImage != null))
@@ -85,16 +85,11 @@ public class ButtonInteraction : MonoBehaviour
             {
                 finalColor = _button.colors.disabledColor;
             }
-            Debug.Log($"pressed: {(_intObj as InteractionButton).isPressed }");
             // Check if the button is clicked, and change the button color to corresponding color
-            if (_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && _invokedCount < invokedThresholdBeforeIgnoring && HandTracking.instance.enableClick)
+            if ((_intObj is InteractionButton && (_intObj as InteractionButton).isPressed && !_button.IsInvoking() && HandTracking.instance.enableClick))
             {
                 finalColor = _button.colors.pressedColor;
-                ++_invokedCount;
-
                 TriggerButtonClick();
-
-                Debug.Log($"Button clicked!");
             }
             // No need to check if the button is hovered or pressed, to get the default color
             // As we already assign the _defaultColor variable to finalColor
@@ -108,12 +103,16 @@ public class ButtonInteraction : MonoBehaviour
     }
     private void TriggerButtonClick()
     {
-        if (enableClickDelay)
+        if(_invokedCount < invokedThresholdBeforeIgnoring)
         {
-            StartCoroutine(DelayTriggerButtonClick());
+            _invokedCount++;
+            if (enableClickDelay)
+            {
+                StartCoroutine(DelayTriggerButtonClick());
+            }
+            else _button.onClick.Invoke();
+            Debug.Log("Button clicked!");
         }
-        else _button.onClick.Invoke();
-        Debug.Log("Button clicked!");
     }
     private IEnumerator DelayTriggerButtonClick()
     {

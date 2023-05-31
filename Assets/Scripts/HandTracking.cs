@@ -17,16 +17,18 @@ public class HandTracking : MonoBehaviour
     public float SwipeFilterThreshold = 0.25f;
     [Tooltip("In second")]
     public float SwipeTimeoutDuration = 1f;
+    public float SwipeRelaxThreshold = 0.035f;
     public float handRotationUpperThreshold = 0.785f;
     public float handRotationLowerThreshold = 0.675f;
     [Header("Back Gesture Setting")]
     public bool enableBackGesture = true;
-    public float backGestureThreshold = 0.4f;
-    public float thumbStrengthThreshold = 0.33f;
-    public float indexStrengthThreshold = 0.725f;
-    public float middleStrengthThreshold = 0.725f;
-    public float ringStrengthThreshold = 0.725f;
-    public float pinkyStrengthThreshold = 0.625f;
+    // public float backGestureThreshold = 0.4f;
+    public float handFlatThreshold = 0.1f;
+    public float thumbStrengthThreshold = 0.6f;
+    public float indexStrengthThreshold = 0.92f;
+    public float middleStrengthThreshold = 0.92f;
+    public float ringStrengthThreshold = 0.88f;
+    public float pinkyStrengthThreshold = 0.85f;
     [Header("Scroll Setting")]
     public bool enableScroll = true;
     [Tooltip("In second")]
@@ -172,18 +174,18 @@ public class HandTracking : MonoBehaviour
         if(enableScroll)
             HandleScrollGesture(handRotationX, absHandRotationZ, numOfFingersThresholdHit);
         if (enableBackGesture)
-            HandleBackGesture(handRotationX, numOfFingersThresholdHit, hand.Fingers.Count);
+            HandleBackGesture(hand.Rotation, numOfFingersThresholdHit, hand.Fingers.Count);
         if (enableSwipe)
-            HandleSwipeGesture(hand.PalmVelocity, absHandRotationZ);
+            HandleSwipeGesture(hand.Rotation.y, hand.PalmVelocity, absHandRotationZ);
     }
     private void IncreaseGestureTimers()
     {
         _timePassedSinceLastScrollTrigger += Time.deltaTime;
         _timePassedSinceLastSwipeTrigger += Time.deltaTime;
     }
-    private void HandleSwipeGesture(Vector3 handVelo, float handRotationZ)
+    private void HandleSwipeGesture(float handRotationY, Vector3 handVelo, float handRotationZ)
     {
-        if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration)
+        if (_timePassedSinceLastSwipeTrigger >= SwipeTimeoutDuration && Math.Abs(handRotationY) >= SwipeRelaxThreshold)
         {
             bool isHandVerticalBasedOnRotation = handRotationZ >= handRotationLowerThreshold && handRotationZ <= handRotationUpperThreshold;
             // bool isHandFlat = handRotationW >= handRotationLowerThreshold && handRotationW <= handRotationUpperThreshold;
@@ -210,14 +212,17 @@ public class HandTracking : MonoBehaviour
             }
         }
     }
-    private void HandleBackGesture(float handRotationX, int numOfFingersThresholdHit, int totalFingersCount)
+    private void HandleBackGesture(Quaternion handRotation, int numOfFingersThresholdHit, int totalFingersCount)
     {
+        // Debug.Log($"HandleBackGesture called, rotation x: {handRotationX}");
         // If hit the go back gesture threshold
         // Then go back
-        bool isFingerCrawled = numOfFingersThresholdHit >= (Mathf.CeilToInt(totalFingersCount / 2));
-        float reversedRotationX = handRotationX * -1;
-        if(!disableDataLogging) Debug.Log($"HandleBackGesture called, isFingerCrawled: {isFingerCrawled}, hand rotation: {reversedRotationX}, threshold: {backGestureThreshold}");
-        if (isFingerCrawled && reversedRotationX >= backGestureThreshold && enableBackGesture)
+        // bool isFingerCrawled = numOfFingersThresholdHit >= (Mathf.CeilToInt(totalFingersCount / 2));
+        bool isFingerCrawled = numOfFingersThresholdHit >= totalFingersCount;
+        float reversedRotationX = handRotation.x * -1;
+        if(!disableDataLogging) Debug.Log($"HandleBackGesture called, isFingerCrawled: {isFingerCrawled}, hand rotation: {handRotation.z}");
+        // if (isFingerCrawled && reversedRotationX >= backGestureThreshold && enableBackGesture)
+        if (isFingerCrawled && reversedRotationX <= handFlatThreshold && handRotation.z <= handFlatThreshold && enableBackGesture)
         {
             if (!disableDataLogging) Debug.Log("Go back gesture detected!");
             SceneLoader.instance.LoadMainMenu();

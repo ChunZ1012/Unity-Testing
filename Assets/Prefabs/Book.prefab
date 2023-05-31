@@ -48,8 +48,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 150, y: 200, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 150, y: 200, z: 25}
+  m_Center: {x: 0, y: 0, z: -25}
 --- !u!1 &7018303189791589355
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +253,9 @@ MonoBehaviour:
   hoverThreshold: 0.15
   invokedThresholdBeforeIgnoring: 1
   requireImageComponent: 0
+  enableClickDelay: 0
+  enableAnimation: 1
+  enableClickDelaySecond: 0.25
 --- !u!114 &7684122831590330597
 MonoBehaviour:
   m_ObjectHideFlags: 0

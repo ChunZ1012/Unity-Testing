@@ -3844,6 +3844,18 @@ PrefabInstance:
       propertyPath: scrollRect
       value: 
       objectReference: {fileID: 1859937613}
+    - target: {fileID: 1080233464845188812, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: SwipeFilterThreshold
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057930828190503491, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.95487344
+      objectReference: {fileID: 0}
+    - target: {fileID: 8885323810769011967, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.95487344
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0ed0ae0e4e9ca646bcb4206eb6abb83, type: 3}
 --- !u!1 &1608267668
